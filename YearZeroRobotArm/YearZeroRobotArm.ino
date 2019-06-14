@@ -48,13 +48,13 @@ void loop()
     M5=wrist rotation degrees. Allowed values from 0 to 180 degrees
     M6=gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   */
-              //(step delay, M1, M2, M3, M4, M5, M6);
-    RoboticArmMovement(20,           0,  15, 180, 170, 0,  73);  
+                    //(step delay, M1, M2,  M3,  M4, M5, M6);
+    RoboticArmMovement(20,          0, 15, 180, 170,  0, 73);  
     //Wait 1 second
     delay(1000);
 
-              //(step delay, M1, M2, M3, M4, M5, M6);
-    RoboticArmMovement(20,           180,  165, 0, 0, 180,  10);  
+                    //(step delay,    M1,   M2, M3, M4,  M5,  M6);
+    RoboticArmMovement(20,           180,  165, 0,  0,  180,  10);  
     //Wait 1 second
     delay(1000);
 }
@@ -73,7 +73,7 @@ void loop()
 void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_ver, int vWrist_rot, int vgripper) 
 {
 	// Check values, to avoid dangerous positions for the Braccio
-  if (stepDelay > 30) stepDelay = 30;
+    if (stepDelay > 30) stepDelay = 30;
 	if (stepDelay < 10) stepDelay = 10;
 	if (vBase < 0) vBase=0;
 	if (vBase > 180) vBase=180;
@@ -85,7 +85,7 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
 	if (vWrist_ver > 180) vWrist_ver=180;
 	if (vWrist_rot > 180) vWrist_rot=180;
 	if (vWrist_rot < 0) vWrist_rot=0;
-  if (vgripper < 10) vgripper = 10;
+    if (vgripper < 10) vgripper = 10;
 	if (vgripper > 73) vgripper = 73;
 
 	int exit = 1;
