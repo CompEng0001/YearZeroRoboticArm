@@ -17,7 +17,7 @@
 #define LOW_LIMIT_TIMEOUT 2000
 #define HIGH_LIMIT_TIMEOUT 6000
 
-// setup of Servo objects note names to represent position of servo on robotic arm
+// setup of Servo objects *note* names to represent position of servo on robotic arm
 Servo base;
 Servo shoulder;
 Servo elbow;
@@ -40,21 +40,21 @@ void setup()
 void loop() 
 {
   /*
-    Step Delay: a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
-    M1=base degrees. Allowed values from 0 to 180 degrees
-    M2=shoulder degrees. Allowed values from 15 to 165 degrees
-    M3=elbow degrees. Allowed values from 0 to 180 degrees
-    M4=wrist vertical degrees. Allowed values from 0 to 180 degrees
-    M5=wrist rotation degrees. Allowed values from 0 to 180 degrees
-    M6=gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
+    SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
+    BA = base degrees. Allowed values from 0 to 180 degrees
+    SH = shoulder degrees. Allowed values from 15 to 165 degrees
+    EL = elbow degrees. Allowed values from 0 to 180 degrees
+    WV = wrist vertical degrees. Allowed values from 0 to 180 degrees
+    WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
+    GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   */
-                    //(step delay, M1, M2,  M3,  M4, M5, M6);
-    RoboticArmMovement(20,          0, 15, 180, 170,  0, 73);  
+                    //(SD, BA, SH,  EL,  WV,  WR,  GR);
+    RoboticArmMovement(20,  0, 15, 180, 170,   0,  73);  
     //Wait 1 second
     delay(1000);
 
-                    //(step delay,    M1,   M2, M3, M4,  M5,  M6);
-    RoboticArmMovement(20,           180,  165, 0,  0,  180,  10);  
+                    //(SD,  BA,  SH,  EL,  WV,   WR,  GR);
+    RoboticArmMovement(20, 180, 165,   0,   0,  180,  10);  
     //Wait 1 second
     delay(1000);
 }
@@ -72,7 +72,7 @@ void loop()
  */
 void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_ver, int vWrist_rot, int vgripper) 
 {
-	// Check values, to avoid dangerous positions for the Braccio
+	// DO NOT CHANGE VALUES, this avoids dangerous positions for the Braccio  
     if (stepDelay > 30) stepDelay = 30;
 	if (stepDelay < 10) stepDelay = 10;
 	if (vBase < 0) vBase=0;
@@ -132,7 +132,6 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
 			if (vElbow < step_elbow) {
 				step_elbow--;
 			}
-
 		}
 
 		if (vWrist_ver != step_wrist_rot) 
@@ -146,7 +145,6 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
 			if (vWrist_ver < step_wrist_rot) {
 				step_wrist_rot--;
 			}
-
 		}
 
 		if (vWrist_rot != step_wrist_ver)
@@ -181,33 +179,33 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
 		if ((vBase == step_base) && (vShoulder == step_shoulder)
 				&& (vElbow == step_elbow) && (vWrist_ver == step_wrist_rot)
 				&& (vWrist_rot == step_wrist_ver) && (vgripper == step_gripper)) 
-      {
+      	{
 			step_base = vBase;
 			step_shoulder = vShoulder;
 			step_elbow = vElbow;
 			step_wrist_rot = vWrist_ver;
 			step_wrist_ver = vWrist_rot;
 			step_gripper = vgripper;
+
+			//Debugging 
+			Serial.print("Base is: ");
+			Serial.println(step_base);
+			Serial.print("Shoulder is: ");
+			Serial.println(step_shoulder);
+			Serial.print("Elbow is: ");
+			Serial.println(step_elbow);
+			Serial.print("Wrist Verticle is: ");
+			Serial.println(step_wrist_ver);
+			Serial.print("Wrist Rotation is: ");
+			Serial.println(step_wrist_rot);
+			Serial.print("Gripper is: ");
+			Serial.println(step_gripper);
+
 			exit = 0;
 		} 
     else 
-    {
-        //Debugging 
-        Serial.print("Base is: ");
-        Serial.println(step_base);
-        Serial.print("Shoulder is: ");
-        Serial.println(step_shoulder);
-        Serial.print("Elbow is: ");
-        Serial.println(step_elbow);
-        Serial.print("Wrist Verticle is: ");
-        Serial.println(step_wrist_ver);
-        Serial.print("Wrist Rotation is: ");
-        Serial.println(step_wrist_rot);
-        Serial.print("Gripper is: ");
-        Serial.println(step_gripper);
-      
-			exit = 1;
-		}
+    {      
+		exit = 1;
 	}
 }
 
@@ -225,11 +223,11 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
  */
 void RoboticArmBegin() 
 {
-	//Calling Braccio.begin(SOFT_START_DISABLED) the Softstart is disabled and you can use the pin 12
-	  pinMode(SOFT_START_CONTROL_PIN,OUTPUT);
-		digitalWrite(SOFT_START_CONTROL_PIN,LOW);
+    //Calling Braccio.begin(SOFT_START_DISABLED) the Softstart is disabled and you can use the pin 12
+	pinMode(SOFT_START_CONTROL_PIN,OUTPUT);
+	digitalWrite(SOFT_START_CONTROL_PIN,LOW);
  
-  // initialization pin Servo motors
+    // initialization pin Servo motors
 	base.attach(11);
 	shoulder.attach(10);
 	elbow.attach(9);
@@ -253,7 +251,7 @@ void RoboticArmBegin()
 	step_wrist_rot = 0;
 	step_gripper = 73;
 
-  softStart(-35); // delayMicroseconds
+    softStart(-35); // delayMicroseconds
 }
 
 /*
