@@ -9,9 +9,11 @@ This repository for the Year Zero Robotic Arm project. Included is an Arduino sk
 * PLEASE NOTE that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
 
 ## Installation 
+* [Specification]() - link for specification sheet, please read some useful information inside.
+
 * Click the image for construction video
 
-  [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](http://www.youtube.com/watch?v=5VkjJXm6bx8 "Robotic Arm Construction")
+  [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](https://www.youtube.com/watch?time_continue=16&v=Lwb2ppat_bs "Robotic Arm Construction")
 
 * [Digital Construction Manaul](https://www.robotshop.com/media/files/pdf/Braccio_Quick_Start_Guide.pdf)
 

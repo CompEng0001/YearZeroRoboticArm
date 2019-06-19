@@ -1,10 +1,14 @@
 /* Sketch amalgamated by: Richard Blair
    Date: 14/06/19
-   Version: 1.0.2
+   Version: 1.0.3
    Useage: Year Zero Project Two
    License: GNU Lesser General Public License
    Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
 */
+
+/*******************************************************************************************************************
+   DO NOT CHANGE ANYTHING IN THE SECTION BELOW OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+ *******************************************************************************************************************/
 
 // Required library for Servo control
 #include <Servo.h>
@@ -27,6 +31,15 @@ Servo gripper;
 
 // set up angles for each servo object
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
+int inputNum;
+char c;
+String Command;
+
+
+/*****************************************************************************************************************
+ END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
+ */
+
 
 void setup()
 {
@@ -48,15 +61,82 @@ void loop()
     WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   */
-                  //(SD, BA, SH,  EL,  WV,  WR,  GR);
-  RoboticArmMovement(20,  0, 15, 180, 170,   0,  73);
+
+while (Serial.available())
+  {
+    delay(10);
+    c = Serial.read();// reading the string sent by google voice
+    if (c == '#')
+    {
+      break;
+      delay(10);
+    }
+
+    Command += c;
+
+    inputNum = Command.toInt();
+  }
+
+   moveGripper(inputNum);
+   Command = "";
+ /*  
+                  //(SD, BA,   SH,   EL,   WV,  WR,  GR);
+  RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
   //Wait 1 second
   delay(1000);
 
-                  //(SD,  BA,  SH,  EL,   WV,   WR,  GR);
-  RoboticArmMovement(20,  0,   15, 180,   170,  0,  73);
-  //Wait 1 second
+                  //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
+  RoboticArmMovement(20,  0,   120,  10,  100,   10,  10);
+  //Wait 1 second*/
   delay(1000);
+}
+
+//Try adding your own functions to reduce the size of the void loop for readability
+
+
+/*****************************************************************************************************************************
+  DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
+ ****************************************************************************************************************************/
+void moveGripper(int vgripper)
+{
+  if (vgripper < 10) vgripper = 10;
+  if (vgripper > 73) vgripper = 73;
+
+  int exit = 1;
+
+  // Until the all motors are in the desired position
+  while (exit)
+  {
+    if (vgripper != step_gripper)
+      {
+        gripper.write(step_gripper);
+        if (vgripper > step_gripper) {
+          step_gripper++;
+        }
+        // One step beyond
+        if (vgripper < step_gripper) {
+          step_gripper--;
+        }
+      }
+    //delay between each movement
+    delay(20);
+
+     //It checks if all the servo motors are in the desired position
+    if (vgripper == step_gripper)
+    {
+      step_gripper = vgripper;
+      //Debugging
+      Serial.print("Gripper is: ");
+      Serial.println(step_gripper);
+      exit = 0;
+    }
+    else
+    {
+      exit = 1;
+    }
+
+  }
+
 }
 
 /**
@@ -209,10 +289,6 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int
     }
   }
 }
-
-/*****************************************************************************************************************************
-  DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
- ****************************************************************************************************************************/
 
 /**
    Braccio initialization and set intial position
