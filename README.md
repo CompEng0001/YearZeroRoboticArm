@@ -12,7 +12,7 @@ This repository is for the Year Zero Robotic Arm project.
 
 * Further modification includes Serial I/O
 
-* PLEASE NOTE that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
+* **PLEASE NOTE** that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
 
 ## Installation 
 
