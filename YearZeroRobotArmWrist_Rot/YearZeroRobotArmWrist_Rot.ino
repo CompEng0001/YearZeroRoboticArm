@@ -64,7 +64,6 @@ void loop()
     inputNum = Command.toInt();
   }
 
-   //moveGripper to position
    //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
    //WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
             //(SD,   WR)
@@ -111,8 +110,8 @@ void moveWrist_Rot(int stepDelay, int wrist_rot)
     {
       step_wrist_rot = vWrist_rot;
       //Debugging
-      Serial.print("Base is: ");
-      Serial.println(step_base);
+      Serial.print("Wrist rotation is: ");
+      Serial.println(step_wrist_rot);
       exit = 0;
     }
     else

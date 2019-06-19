@@ -102,12 +102,10 @@ void moveBase(int stepDelay, int vBase)
         step_base--;
       }
     }
+    //delay between each movement
+    delay(stepDelay);
 
-
-      //delay between each movement
-      delay(stepDelay);
-
-     //It checks if all the servo motors are in the desired position
+    //It checks if all the servo motors are in the desired position
     if (vBase == step_base)
     {
       step_base = vBase;

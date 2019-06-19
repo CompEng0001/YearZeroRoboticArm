@@ -63,8 +63,7 @@ void loop()
 
     inputNum = Command.toInt();
   }
-
-   //moveGripper to position
+  
    //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
    //SH = shoulder degrees. Allowed values from 15 to 165 degrees
             //(SD,   SH)

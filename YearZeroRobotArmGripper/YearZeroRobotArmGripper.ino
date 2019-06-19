@@ -64,7 +64,6 @@ void loop()
     inputNum = Command.toInt();
   }
 
-   //moveGripper to position
    //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
    //GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
             //(SD,   GR)

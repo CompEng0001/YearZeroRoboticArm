@@ -1,7 +1,7 @@
 /* Sketch amalgamated by: Richard Blair
    Date: 14/06/19
    Version: 1.0.3
-   Useage: Year Zero Project Two to control the Elbow only
+   Useage: Year Zero Project Two to control the Wrist vertical only
    License: GNU Lesser General Public License
    Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
 */
@@ -65,9 +65,9 @@ void loop()
   }
   
    //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
-   //EL = Elbow degrees. Allowed values from 0 to 180 degrees
-            //(SD,   EL)
-   moveElbow(20, inputNum);
+   //WV = wrist vertical degrees. Allowed values from 0 to 180 degrees
+            //(SD,   WV)
+   moveWrist_Ver(20, inputNum);
 
    delay(1000);
    
@@ -77,48 +77,47 @@ void loop()
 /*****************************************************************************************************************************
   DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
  ****************************************************************************************************************************/
-void moveElbow(int stepDelay, int vElbow)
+void moveWrist_Ver(int stepDelay, int wrist_Ver)
 {
   if (stepDelay > 30) stepDelay = 30;
   if (stepDelay < 10) stepDelay = 10;
-  if (vElbow < 0) vElbow = 0;
-  if (vElbow > 180) vElbow = 180;
-
+  if (vWrist_Ver < 0) vWrist_Ver = 0;
+  if (vWrist_Ver > 180) vWrist_Ver = 180;
   int exit = 1;
 
   // Until the all motors are in the desired position
-  while (exit)
-  {
-      // For each servo motor if next degree is not the same of the previuos than do the movement
-    if (vElbow != step_elbow)
-      {
-        elbow.write(step_elbow);
-        // One step ahead
-        if (vElbow > step_elbow) {
-          step_elbow++;
-        }
-        // One step beyond
-        if (vElbow < step_elbow) {
-          step_elbow--;
-        }
+ while (exit)
+ {
+    // For each servo motor if next degree is not the same of the previuos than do the movement
+    if (vWrist_Ver != step_wrist_Ver)
+    {
+      wrist_Ver.write(step_wrist_Ver);
+      // One step ahead
+      if (vWrist_Ver > step_wrist_Ver) {
+        step_wrist_Ver++;
       }
+      // One step beyond
+      if (vWrist_Ver < step_wrist_Ver) {
+        step_wrist_Ver--;
+      }
+    }
 
-   //delay between each movement
-   delay(stepDelay);
+    //delay between each movement
+    delay(stepDelay);
 
     //It checks if all the servo motors are in the desired position
-   if (vElbow == step_elbow)
-   {
-     step_elbow = vElbow;
-     //Debugging
-     Serial.print("Elbow is: ");
-     Serial.println(step_elbow);
-     exit = 0;
-   }
-   else
-   {
-     exit = 1;
-   }
+    if(vWrist_Ver == step_wrist_Ver)
+    {
+      step_wrist_Ver = vWrist_Ver;
+      //Debugging
+      Serial.print("Wrist vertical is: ");
+      Serial.println(step_wrist_ver);
+      exit = 0;
+    }
+    else
+    {
+      exit = 1;
+    }
 
   }
 }
