@@ -26,18 +26,18 @@ Servo wrist_ver;
 Servo gripper;
 
 // set up angles for each servo object
-int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot,  step_gripper;
+int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
 
-void setup() 
+void setup()
 {
   // Open serial for communication
   Serial.begin(115200);
 
-  //initialization of RoboticArm safely 
+  //initialization of RoboticArm safely
   RoboticArmBegin();
 }
 
-void loop() 
+void loop()
 {
   /*
     SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
@@ -139,38 +139,38 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
     if (vgripper < 10) vgripper = 10;
 	if (vgripper > 73) vgripper = 73;
 
-	int exit = 1;
+  int exit = 1;
 
-	// Until the all motors are in the desired position
-	while (exit) 
-	{			
-		// For each servo motor if next degree is not the same of the previuos than do the movement		
-		if (vBase != step_base) 
-		{			
-			base.write(step_base);
-			// One step ahead
-			if (vBase > step_base) {
-				step_base++;
-			}
-			// One step beyond
-			if (vBase < step_base) {
-				step_base--;
-			}
-		}
+  // Until the all motors are in the desired position
+  while (exit)
+  {
+    // For each servo motor if next degree is not the same of the previuos than do the movement
+    if (vBase != step_base)
+    {
+      base.write(step_base);
+      // One step ahead
+      if (vBase > step_base) {
+        step_base++;
+      }
+      // One step beyond
+      if (vBase < step_base) {
+        step_base--;
+      }
+    }
 
-		if (vShoulder != step_shoulder)  
-		{
-			shoulder.write(step_shoulder);
-			// One step ahead
-			if (vShoulder > step_shoulder) {
-				step_shoulder++;
-			}
-			// One step beyond
-			if (vShoulder < step_shoulder) {
-				step_shoulder--;
-			}
+    if (vShoulder != step_shoulder)
+    {
+      shoulder.write(step_shoulder);
+      // One step ahead
+      if (vShoulder > step_shoulder) {
+        step_shoulder++;
+      }
+      // One step beyond
+      if (vShoulder < step_shoulder) {
+        step_shoulder--;
+      }
 
-		}
+    }
 
 		if (vElbow != step_elbow)  
 		{
@@ -198,18 +198,8 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int 
 			}
 		}
 
-		if (vWrist_rot != step_wrist_ver)
-		{
-			wrist_ver.write(step_wrist_ver);
-			// One step ahead
-			if (vWrist_rot > step_wrist_ver) {
-				step_wrist_ver++;
-			}
-			// One step beyond
-			if (vWrist_rot < step_wrist_ver) {
-				step_wrist_ver--;
-			}
-		}
+    //delay between each movement
+    delay(stepDelay);
 
 		if (vgripper != step_gripper)
 		{
@@ -285,21 +275,21 @@ void RoboticArmSafteyPosition()
 }
 
 /*
-  * This function, used only with the Braccio Shield V4 and greater,
-  * turn ON the Braccio softly and save Braccio from brokes.
-  * The SOFT_START_CONTROL_PIN is used as a software PWM
-  * @param soft_start_level: the minimum value is -70, , default value is 0 (SOFT_START_DEFAULT)
-  */
+    This function, used only with the Braccio Shield V4 and greater,
+    turn ON the Braccio softly and save Braccio from brokes.
+    The SOFT_START_CONTROL_PIN is used as a software PWM
+    @param soft_start_level: the minimum value is -70, , default value is 0 (SOFT_START_DEFAULT)
+*/
 void softStart(int soft_start_level)
-{      
-	long int tmp=millis();
-	while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-		softwarePWM(80+soft_start_level, 450 - soft_start_level);   //the sum should be 530usec	
+{
+  long int tmp = millis();
+  while (millis() - tmp < LOW_LIMIT_TIMEOUT)
+    softwarePWM(80 + soft_start_level, 450 - soft_start_level); //the sum should be 530usec
 
-	while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-		softwarePWM(75 + soft_start_level, 430 - soft_start_level); //the sum should be 505usec
+  while (millis() - tmp < HIGH_LIMIT_TIMEOUT)
+    softwarePWM(75 + soft_start_level, 430 - soft_start_level); //the sum should be 505usec
 
-	digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
+  digitalWrite(SOFT_START_CONTROL_PIN, HIGH);
 }
 
 /*
@@ -309,8 +299,8 @@ void softStart(int soft_start_level)
   */
 void softwarePWM(int high_time, int low_time)
 {
-	digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
-	delayMicroseconds(high_time);
-	digitalWrite(SOFT_START_CONTROL_PIN,LOW);
-	delayMicroseconds(low_time); 
+  digitalWrite(SOFT_START_CONTROL_PIN, HIGH);
+  delayMicroseconds(high_time);
+  digitalWrite(SOFT_START_CONTROL_PIN, LOW);
+  delayMicroseconds(low_time);
 }
