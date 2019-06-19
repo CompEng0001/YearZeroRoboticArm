@@ -1,5 +1,12 @@
 # Specifications 
 
+## Power
+
+It is recommended to power the board via the jack connection with a regulated 5 VDC @ 4000 mA power supply provided in the box.
+
+> There is an on-board voltage regulator for higher voltages that protect the Braccio shield. NOTE: The protection doesn’t work for the Arduino  Yun if you put the bridge between Vin and 5V on the Arm Robot Shield V1 (greater version of are called Braccio shield and has a power switch on  the top of the shield)
+
+
 ## Physical Characteristics
 
 * Plastic Parts x 21
@@ -14,6 +21,8 @@
 * Double Hexagon Box Wrench x 1
 * Spiral Cable Protection Wrap x 1
 
+>Braccio Shield: The maximum length and width of the Braccio Shield PCB are 2.7 and 2.1 inches respectively, with the power jack extending beyond the former dimension. Four screw holes allow the board to be attached to a surface or case. Note that the distance between digital pins 7 and 8 is 160 mil (0.16"), not an even multiple of the 100 mil spacing of the other pins.
+
 ## Fully assembled Braccio Kit:
 
 * Weight: 792 g
@@ -22,7 +31,7 @@
 * Base Width: 14 cm
 * Gripper Width: 90 mm
 * Cable length: 40 cm
-* Load Capacity: Maximum weight at 32 cm operating distance: 150 g, Maximum weight at the minimal Braccio configuration: 400g
+* Load Capacity: Maximum weight at 32 cm operating distance: 150g, Maximum weight at the minimal Braccio configuration: 400g
 
 ## Servo Technical Specification
 
