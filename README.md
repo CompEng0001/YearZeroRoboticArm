@@ -3,16 +3,16 @@
 This repository is for the Year Zero Robotic Arm project. 
 
 * Included is Arduino sketches and some documentation.
-* 
-There are 6 sketches that are available to use to control individual servos and a 7th sketchs(YearZeroRobotArmMain) that controls all servos via one function. 
 
-* The sketch has been developed to use key functionality from [Braccio Robotic Arm](https://github.com/arduino-org/arduino-library-braccio) so students do not have to download the libraries. WARNING - there has been a request to change some code, [mix-up of wrist values](https://github.com/arduino-org/arduino-library-braccio/pull/4/commits/4ee82eac74b98196bec2413bd87deda3019e3a5c). So please only use the code I have provided in this repository as I have made this change.
+* There are 6 sketches that are available to use to control individual servos and a 7th sketchs(YearZeroRobotArmMain) that controls all servos via one function. 
+
+* The sketch has been developed to use key functionality from [Braccio Robotic Arm](https://github.com/arduino-org/arduino-library-braccio) so students do not have to download the libraries. 
+ 
+ >**WARNING** - there has been a request to change some code, [mix-up of wrist values](https://github.com/arduino-org/arduino-library-braccio/pull/4/commits/4ee82eac74b98196bec2413bd87deda3019e3a5c). So please only use the code I have provided in this repository as I have made this change.
 
 * Further modification includes Serial I/O
 
 * PLEASE NOTE that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
-
-
 
 ## Installation 
 
