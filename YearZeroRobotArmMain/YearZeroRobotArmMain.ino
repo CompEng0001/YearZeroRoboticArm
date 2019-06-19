@@ -31,15 +31,10 @@ Servo gripper;
 
 // set up angles for each servo object
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
-int inputNum;
-char c;
-String Command;
-
 
 /*****************************************************************************************************************
  END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
  */
-
 
 void setup()
 {
@@ -62,24 +57,7 @@ void loop()
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   */
 
-while (Serial.available())
-  {
-    delay(10);
-    c = Serial.read();// reading the string sent by google voice
-    if (c == '#')
-    {
-      break;
-      delay(10);
-    }
-
-    Command += c;
-
-    inputNum = Command.toInt();
-  }
-
-   moveGripper(inputNum);
-   Command = "";
- /*  
+   
                   //(SD, BA,   SH,   EL,   WV,  WR,  GR);
   RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
   //Wait 1 second
@@ -87,7 +65,7 @@ while (Serial.available())
 
                   //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
   RoboticArmMovement(20,  0,   120,  10,  100,   10,  10);
-  //Wait 1 second*/
+  //Wait 1 second
   delay(1000);
 }
 
@@ -97,47 +75,6 @@ while (Serial.available())
 /*****************************************************************************************************************************
   DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
  ****************************************************************************************************************************/
-void moveGripper(int vgripper)
-{
-  if (vgripper < 10) vgripper = 10;
-  if (vgripper > 73) vgripper = 73;
-
-  int exit = 1;
-
-  // Until the all motors are in the desired position
-  while (exit)
-  {
-    if (vgripper != step_gripper)
-      {
-        gripper.write(step_gripper);
-        if (vgripper > step_gripper) {
-          step_gripper++;
-        }
-        // One step beyond
-        if (vgripper < step_gripper) {
-          step_gripper--;
-        }
-      }
-    //delay between each movement
-    delay(20);
-
-     //It checks if all the servo motors are in the desired position
-    if (vgripper == step_gripper)
-    {
-      step_gripper = vgripper;
-      //Debugging
-      Serial.print("Gripper is: ");
-      Serial.println(step_gripper);
-      exit = 0;
-    }
-    else
-    {
-      exit = 1;
-    }
-
-  }
-
-}
 
 /**
    This functions allow you to control all the servo motors
@@ -214,29 +151,29 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int
       }
     }
 
-    if (vWrist_ver != step_wrist_rot)
-    {
-      wrist_rot.write(step_wrist_rot);
-      // One step ahead
-      if (vWrist_ver > step_wrist_rot) {
-        step_wrist_rot++;
-      }
-      // One step beyond
-      if (vWrist_ver < step_wrist_rot) {
-        step_wrist_rot--;
-      }
-    }
-
-    if (vWrist_rot != step_wrist_ver)
+    if (vWrist_ver != step_wrist_ver)
     {
       wrist_ver.write(step_wrist_ver);
       // One step ahead
-      if (vWrist_rot > step_wrist_ver) {
+      if (vWrist_ver > step_wrist_ver) {
         step_wrist_ver++;
       }
       // One step beyond
-      if (vWrist_rot < step_wrist_ver) {
+      if (vWrist_ver < step_wrist_ver) {
         step_wrist_ver--;
+      }
+    }
+
+    if (vWrist_rot != step_wrist_rot)
+    {
+      wrist_rot.write(step_wrist_rot);
+      // One step ahead
+      if (vWrist_rot > step_wrist_rot) {
+        step_wrist_rot++;
+      }
+      // One step beyond
+      if (vWrist_rot < step_wrist_rot) {
+        step_wrist_rot--;
       }
     }
 
@@ -257,14 +194,14 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int
 
     //It checks if all the servo motors are in the desired position
     if ((vBase == step_base) && (vShoulder == step_shoulder)
-        && (vElbow == step_elbow) && (vWrist_ver == step_wrist_rot)
-        && (vWrist_rot == step_wrist_ver) && (vgripper == step_gripper))
+        && (vElbow == step_elbow) && (vWrist_ver == step_wrist_ver)
+        && (vWrist_rot == step_wrist_rot) && (vgripper == step_gripper))
     {
       step_base = vBase;
       step_shoulder = vShoulder;
       step_elbow = vElbow;
-      step_wrist_rot = vWrist_ver;
-      step_wrist_ver = vWrist_rot;
+      step_wrist_rot = vWrist_rot;
+      step_wrist_ver = vWrist_ver;
       step_gripper = vgripper;
 
       //Debugging
