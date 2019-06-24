@@ -19,14 +19,15 @@ This repository is for the Year Zero Robotic Arm project.
 * All you need to do is clone/download (greenButton) and choose download as Zip. 
 * Right click an extract at current location or navigate to the ardunio sketch folder on the machine and do it there. 
 
-## Consturction
-* [Specification]() - link for specification sheet, please read some useful information inside.
+## Construction
+
+* [**Read the Specification**](https://github.com/CompEng0001/YearZeroRoboticArm/blob/master/Specifications.md) - link for specification sheet, please read some useful information inside.
 
 * Click the image for construction video
 
   [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](https://www.youtube.com/watch?time_continue=16&v=Lwb2ppat_bs "Robotic Arm Construction")
 
-* [Digital Construction Manaul](https://www.robotshop.com/media/files/pdf/Braccio_Quick_Start_Guide.pdf)
+* [Digital Construction Manual](https://www.robotshop.com/media/files/pdf/Braccio_Quick_Start_Guide.pdf)
 
 >Make sure you use the right numbered servo motors (numbering on the end of the cable near the connector) in the right joints.  And be a bit careful because mounting the servos with the screws causes the plastic to "bloom" a bit and it will never be quite as tight if you have to remove them and put them back in again.  Although the plastic pentagons are pre-attached to the servo hub, but I found that some were a few degrees off center, so you just have to adjust your code for that.
 
