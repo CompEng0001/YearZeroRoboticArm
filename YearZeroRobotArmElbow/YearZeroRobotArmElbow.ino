@@ -63,7 +63,8 @@ void loop()
 
     inputNum = Command.toInt();
   }
-  
+
+  if(Command.length() > 0){
    //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
    //EL = Elbow degrees. Allowed values from 0 to 180 degrees
             //(SD,   EL)
@@ -72,6 +73,7 @@ void loop()
    delay(1000);
    
    Command = "";
+  }
 }
 
 /*****************************************************************************************************************************
@@ -147,7 +149,7 @@ void RoboticArmBegin()
 
   //For each step motor this set up the initial degree
   base.write(0);
-  shoulder.write(40);
+  shoulder.write(95);
   elbow.write(180);
   wrist_ver.write(170);
   wrist_rot.write(0);
@@ -155,7 +157,7 @@ void RoboticArmBegin()
 
   //Previous step motor position
   step_base = 0;
-  step_shoulder = 40;
+  step_shoulder = 95;
   step_elbow = 180;
   step_wrist_ver = 170;
   step_wrist_rot = 0;

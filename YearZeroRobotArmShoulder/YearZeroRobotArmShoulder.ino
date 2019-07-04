@@ -44,7 +44,7 @@ void setup()
   RoboticArmBegin();
 }
 /*****************************************************************************************************************
-  END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
+  END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES
  *****************************************************************************************************************/
 
 void loop()
@@ -63,15 +63,18 @@ void loop()
 
     inputNum = Command.toInt();
   }
-  
-   //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
-   //SH = shoulder degrees. Allowed values from 15 to 165 degrees
-            //(SD,   SH)
-   moveShoulder(20, inputNum);
 
-   delay(1000);
-   
-   Command = "";
+  //SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
+  //SH = shoulder degrees. Allowed values from 15 to 165 degrees
+  //(SD,   SH)
+  if (Command.length() > 0)
+  {
+    moveShoulder(20, inputNum);
+
+    delay(1000);
+
+    Command = "";
+  }
 }
 
 /*****************************************************************************************************************************
@@ -86,10 +89,10 @@ void moveShoulder(int stepDelay, int vShoulder)
   int exit = 1;
 
   // Until the all motors are in the desired position
- while (exit)
- {
+  while (exit)
+  {
     // For each servo motor if next degree is not the same of the previuos than do the movement
-   if (vShoulder != step_shoulder)
+    if (vShoulder != step_shoulder)
     {
       shoulder.write(step_shoulder);
       // One step ahead
@@ -101,12 +104,12 @@ void moveShoulder(int stepDelay, int vShoulder)
         step_shoulder--;
       }
     }
-  
+
     //delay between each movement
     delay(stepDelay);
 
     //It checks if all the servo motors are in the desired position
-   if (vShoulder == step_shoulder)
+    if (vShoulder == step_shoulder)
     {
       step_shoulder = vShoulder;
       //Debugging
@@ -114,11 +117,11 @@ void moveShoulder(int stepDelay, int vShoulder)
       Serial.println(step_shoulder);
       exit = 0;
     }
-   else
+    else
     {
       exit = 1;
     }
- }
+  }
 
 }
 
@@ -146,7 +149,7 @@ void RoboticArmBegin()
 
   //For each step motor this set up the initial degree
   base.write(0);
-  shoulder.write(40);
+  shoulder.write(100);
   elbow.write(180);
   wrist_ver.write(170);
   wrist_rot.write(0);
@@ -154,7 +157,7 @@ void RoboticArmBegin()
 
   //Previous step motor position
   step_base = 0;
-  step_shoulder = 40;
+  step_shoulder = 100;
   step_elbow = 180;
   step_wrist_ver = 170;
   step_wrist_rot = 0;
