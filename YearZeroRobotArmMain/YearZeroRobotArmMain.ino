@@ -7,7 +7,7 @@
 */
 
 /*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THE SECTION BELOW OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+   DO NOT CHANGE ANYTHING IN THIS REGION (LINE 9 TO 37) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  *******************************************************************************************************************/
 
 // Required library for Servo control
@@ -32,18 +32,21 @@ Servo gripper;
 // set up angles for each servo object
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
 
-/*****************************************************************************************************************
- END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
- */
-
 void setup()
 {
   // Open serial for communication
   Serial.begin(115200);
 
-  //initialization of RoboticArm safely
+  // LED for visual indicator of readiness
+  digitalWrite(LED_BUILTIN, OUTPUT);
+
+  // Initialization of RoboticArm safely
   RoboticArmBegin();
 }
+
+/*****************************************************************************************************************
+ END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
+ *****************************************************************************************************************/
 
 void loop()
 {
@@ -57,7 +60,7 @@ void loop()
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   */
 
-   
+  digitalWrite(LED_BUILTIN, HIGH); 
                   //(SD, BA,   SH,   EL,   WV,  WR,  GR);
   RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
   //Wait 1 second
@@ -69,11 +72,8 @@ void loop()
   delay(1000);
 }
 
-//Try adding your own functions to reduce the size of the void loop for readability
-
-
 /*****************************************************************************************************************************
-  DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
+  DO NOT CHANGE ANYTHING IN THIS REGION (LINE X TO Y) OR RISK DAMAGING THE ROBOTIC ARM
  ****************************************************************************************************************************/
 
 /**
@@ -89,6 +89,7 @@ void loop()
 */
 void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int vWrist_ver, int vWrist_rot, int vgripper)
 {
+  digitalWrite(LED_BUILTIN, LOW);
   // DO NOT CHANGE VALUES, this avoids dangerous positions for the Braccio
   if (stepDelay > 30) stepDelay = 30;
   if (stepDelay < 10) stepDelay = 10;
@@ -225,6 +226,7 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int
       exit = 1;
     }
   }
+  digitalWrite(LED_BUILTIN, HIGH); 
 }
 
 /**
@@ -259,11 +261,11 @@ void RoboticArmBegin()
 
   //Previous step motor position
   step_base = 0;
-  step_shoulder = 40;
+  step_shoulder = 100;
   step_elbow = 180;
   step_wrist_ver = 170;
   step_wrist_rot = 0;
-  step_gripper = 73;
+  step_gripper = 10;
 
   softStart(-35); // delayMicroseconds
 }
@@ -298,3 +300,7 @@ void softwarePWM(int high_time, int low_time)
   digitalWrite(SOFT_START_CONTROL_PIN, LOW);
   delayMicroseconds(low_time);
 }
+
+/*****************************************************************************************************************************
+  END OF REGION
+ ****************************************************************************************************************************/

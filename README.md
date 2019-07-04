@@ -13,15 +13,20 @@ This repository is for the Year Zero Robotic Arm project.
 * Further modification includes Serial I/O
 
 * **PLEASE NOTE** that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
+   >* M1 = base degrees. Allowed values from 0 to 180 degrees
+    * M2 = shoulder degrees. Allowed values from 15 to 165 degrees
+    * M3 = elbow degrees. Allowed values from 0 to 180 degrees
+    * M4 = wrist vertical degrees. Allowed values from 0 to 180 degrees
+    * M5 = wrist rotation degrees. Allowed values from 0 to 180 degrees
+    * M6 = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
 
 ## Installation 
 
 * All you need to do is clone/download (greenButton) and choose download as Zip. 
 * Right click an extract at current location or navigate to the ardunio sketch folder on the machine and do it there. 
 
-## Construction
-
-* [**Read the Specification**](https://github.com/CompEng0001/YearZeroRoboticArm/blob/master/Specifications.md) - link for specification sheet, please read some useful information inside.
+## Consturction
+* [Specification]() - link for specification sheet, please read some useful information inside.
 
 * Click the image for construction video
 

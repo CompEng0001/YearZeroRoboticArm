@@ -1,13 +1,13 @@
-/* Sketch amalgamated by: Richard Blair
-   Date: 14/06/19
-   Version: 1.0.3
-   Useage: Year Zero Project Two to control the arm in stages or by servo
+/* Sketch amalgamated by: Richard Blair(CompEng0001)
+   Date: 04/07/19
+   Version: 1.2
+   Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
    License: GNU Lesser General Public License
    Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
 */
 
 /*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THE SECTION BELOW OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 520) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING 
  *******************************************************************************************************************/
 
 // Required library for Servo control
@@ -31,78 +31,116 @@ Servo gripper;
 
 // set up angles for each servo object
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
-int inputNum;
-String Command;
-char c;
+
+int inputNum; // for angle
+char c; // for incoming byte from serial 
+String Command; // for saving c to a string
+
 void setup()
 {
   // Open serial for communication
   Serial.begin(115200);
+  
   pinMode(LED_BUILTIN, OUTPUT);
   //initialization of RoboticArm safely
   RoboticArmBegin();
-}
-/*****************************************************************************************************************
-  END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES
- *****************************************************************************************************************/
 
+  // Some instructions to screen
+  Serial.println("The robot is ready to receive commands when the led is on.");
+  Serial.println("When the light is off your command will be processed");
+  Serial.println("Remember the robotoic arm will only move when an excepted command is inputted:");
+  Serial.println(" * Motor/Servo identifier then desired angle.... eg  Base to 60 degrees = B60");
+  Serial.println(" * B = Base, S = Shoulder, E = Elbow, V = wristVertical, R = wristRotation");
+  Serial.println("If in doubt refer to documentations or ask for help!")
+}
 void loop()
 {
-
+  //Do not remove this line serialListener() the code will not work.
   serialListener();
-
 }
 
-/*****************************************************************************************************************************
-  DO NOT CHANGE ANYTHING BELOW OR RISK DAMAGING THE ROBOTIC ARM
- ****************************************************************************************************************************/
-
-void moveWrist_Rot(int stepDelay, int vWrist_rot)
+void serialListener()
 {
-  if (stepDelay > 30)
-    stepDelay = 30;
-  if (stepDelay < 10)
-    stepDelay = 10;
-  if (vWrist_rot < 0)
-    vWrist_rot = 0;
-  if (vWrist_rot > 180)
-    vWrist_rot = 180;
-  int exit = 1;
+  // wait for light to show so that you know it is ready to receive commands
 
-  // Until the all motors are in the desired position
-  while (exit)
+  digitalWrite(LED_BUILTIN, HIGH);
+
+  while (Serial.available())
   {
-    // For each servo motor if next degree is not the same of the previuos than do the movement
-    if (vWrist_rot != step_wrist_rot)
+    delay(100);
+    c = Serial.read(); // reading the string sent by google voice
+    if (c == '#')
     {
-      wrist_rot.write(step_wrist_rot);
-      // One step ahead
-      if (vWrist_rot > step_wrist_rot)
-      {
-        step_wrist_rot++;
-      }
-      // One step beyond
-      if (vWrist_rot < step_wrist_rot)
-      {
-        step_wrist_rot--;
-      }
+      break;
     }
+    Command += c;
+  }
 
-    //delay between each movement
-    delay(stepDelay);
-
-    //It checks if all the servo motors are in the desired position
-    if (vWrist_rot == step_wrist_rot)
+  if (Command.length() > 3)
+  {
+    // Turn light off to show that a command is being processed
+    digitalWrite(LED_BUILTIN, LOW);
+    
+    Command.trim(); //Get rid of any whitespace
+    
+    // Move Elbow
+    if (Command.startsWith("E"))
     {
-      step_wrist_rot = vWrist_rot;
-      //Debugging
-      Serial.print("Wrist rotation is: ");
-      Serial.println(step_wrist_rot);
-      exit = 0;
+      Command.replace("E", "");
+      inputNum = Command.toInt();
+      moveElbow(20, inputNum);
+      delay(1000);
+      Command = "";
+    }
+    // Move Shoulder
+    else if (Command.startsWith("S"))
+    {
+      Command.replace("S", "");
+      inputNum = Command.toInt();
+      moveShoulder(20, inputNum);
+      delay(1000);
+      Command = "";
+    }
+    // Move Base
+    else if (Command.startsWith("B"))
+    {
+      Command.replace("B", "");
+      inputNum = Command.toInt();
+      moveBase(20, inputNum);
+      delay(1000);
+      Command = "";
+    }
+    // Move WritsVer
+    else if (Command.startsWith("V"))
+    {
+      Command.replace("V", "");
+      inputNum = Command.toInt();
+      moveWrist_Ver(20, inputNum);
+      delay(1000);
+      Command = "";
+    }
+    // Move wristRot
+    else if (Command.startsWith("R"))
+    {
+      Command.replace("R", "");
+      inputNum = Command.toInt();
+      moveWrist_Rot(20, inputNum);
+      delay(1000);
+      Command = "";
+    } 
+    // Move Gripper
+    else if (Command.startsWith("G"))
+    {
+      Command.replace("G", "");
+      inputNum = Command.toInt();
+      moveGripper(20, inputNum);
+      delay(1000);
+      Command = "";
     }
     else
     {
-      exit = 1;
+      Serial.println("Please enter a motor letter joined with an angle eg B60: ");
+      Command = "";
     }
   }
 }
@@ -156,34 +194,34 @@ void moveBase(int stepDelay, int vBase)
   }
 }
 
-void moveWrist_Ver(int stepDelay, int vWrist_Ver)
+void moveShoulder(int stepDelay, int vShoulder)
 {
   if (stepDelay > 30)
     stepDelay = 30;
   if (stepDelay < 10)
     stepDelay = 10;
-  if (vWrist_Ver < 0)
-    vWrist_Ver = 0;
-  if (vWrist_Ver > 180)
-    vWrist_Ver = 180;
+  if (vShoulder < 15)
+    vShoulder = 15;
+  if (vShoulder > 165)
+    vShoulder = 165;
   int exit = 1;
 
   // Until the all motors are in the desired position
   while (exit)
   {
     // For each servo motor if next degree is not the same of the previuos than do the movement
-    if (vWrist_Ver != step_wrist_ver)
+    if (vShoulder != step_shoulder)
     {
-      wrist_ver.write(step_wrist_ver);
+      shoulder.write(step_shoulder);
       // One step ahead
-      if (vWrist_Ver > step_wrist_ver)
+      if (vShoulder > step_shoulder)
       {
-        step_wrist_ver++;
+        step_shoulder++;
       }
       // One step beyond
-      if (vWrist_Ver < step_wrist_ver)
+      if (vShoulder < step_shoulder)
       {
-        step_wrist_ver--;
+        step_shoulder--;
       }
     }
 
@@ -191,60 +229,12 @@ void moveWrist_Ver(int stepDelay, int vWrist_Ver)
     delay(stepDelay);
 
     //It checks if all the servo motors are in the desired position
-    if (vWrist_Ver == step_wrist_ver)
+    if (vShoulder == step_shoulder)
     {
-      step_wrist_ver = vWrist_Ver;
+      step_shoulder = vShoulder;
       //Debugging
-      Serial.print("Wrist vertical is: ");
-      Serial.println(step_wrist_ver);
-      exit = 0;
-    }
-    else
-    {
-      exit = 1;
-    }
-  }
-}
-
-void moveGripper(int stepDelay, int vgripper)
-{
-  if (stepDelay > 30)
-    stepDelay = 30;
-  if (stepDelay < 10)
-    stepDelay = 10;
-  if (vgripper < 10)
-    vgripper = 10;
-  if (vgripper > 73)
-    vgripper = 73;
-
-  int exit = 1;
-
-  // Until the all motors are in the desired position
-  while (exit)
-  {
-    if (vgripper != step_gripper)
-    {
-      gripper.write(step_gripper);
-      if (vgripper > step_gripper)
-      {
-        step_gripper++;
-      }
-      // One step beyond
-      if (vgripper < step_gripper)
-      {
-        step_gripper--;
-      }
-    }
-    //delay between each movement
-    delay(stepDelay);
-
-    //It checks if all the servo motors are in the desired position
-    if (vgripper == step_gripper)
-    {
-      step_gripper = vgripper;
-      //Debugging
-      Serial.print("Gripper is: ");
-      Serial.println(step_gripper);
+      Serial.print("Shoulder is: ");
+      Serial.println(step_shoulder);
       exit = 0;
     }
     else
@@ -305,34 +295,34 @@ void moveElbow(int stepDelay, int vElbow)
   }
 }
 
-void moveShoulder(int stepDelay, int vShoulder)
+void moveWrist_Ver(int stepDelay, int vWrist_Ver)
 {
   if (stepDelay > 30)
     stepDelay = 30;
   if (stepDelay < 10)
     stepDelay = 10;
-  if (vShoulder < 15)
-    vShoulder = 15;
-  if (vShoulder > 165)
-    vShoulder = 165;
+  if (vWrist_Ver < 0)
+    vWrist_Ver = 0;
+  if (vWrist_Ver > 180)
+    vWrist_Ver = 180;
   int exit = 1;
 
   // Until the all motors are in the desired position
   while (exit)
   {
     // For each servo motor if next degree is not the same of the previuos than do the movement
-    if (vShoulder != step_shoulder)
+    if (vWrist_Ver != step_wrist_ver)
     {
-      shoulder.write(step_shoulder);
+      wrist_ver.write(step_wrist_ver);
       // One step ahead
-      if (vShoulder > step_shoulder)
+      if (vWrist_Ver > step_wrist_ver)
       {
-        step_shoulder++;
+        step_wrist_ver++;
       }
       // One step beyond
-      if (vShoulder < step_shoulder)
+      if (vWrist_Ver < step_wrist_ver)
       {
-        step_shoulder--;
+        step_wrist_ver--;
       }
     }
 
@@ -340,12 +330,110 @@ void moveShoulder(int stepDelay, int vShoulder)
     delay(stepDelay);
 
     //It checks if all the servo motors are in the desired position
-    if (vShoulder == step_shoulder)
+    if (vWrist_Ver == step_wrist_ver)
     {
-      step_shoulder = vShoulder;
+      step_wrist_ver = vWrist_Ver;
       //Debugging
-      Serial.print("Shoulder is: ");
-      Serial.println(step_shoulder);
+      Serial.print("Wrist vertical is: ");
+      Serial.println(step_wrist_ver);
+      exit = 0;
+    }
+    else
+    {
+      exit = 1;
+    }
+  }
+}
+
+void moveWrist_Rot(int stepDelay, int vWrist_rot)
+{
+  if (stepDelay > 30)
+    stepDelay = 30;
+  if (stepDelay < 10)
+    stepDelay = 10;
+  if (vWrist_rot < 0)
+    vWrist_rot = 0;
+  if (vWrist_rot > 180)
+    vWrist_rot = 180;
+  int exit = 1;
+
+  // Until the all motors are in the desired position
+  while (exit)
+  {
+    // For each servo motor if next degree is not the same of the previuos than do the movement
+    if (vWrist_rot != step_wrist_rot)
+    {
+      wrist_rot.write(step_wrist_rot);
+      // One step ahead
+      if (vWrist_rot > step_wrist_rot)
+      {
+        step_wrist_rot++;
+      }
+      // One step beyond
+      if (vWrist_rot < step_wrist_rot)
+      {
+        step_wrist_rot--;
+      }
+    }
+
+    //delay between each movement
+    delay(stepDelay);
+
+    //It checks if all the servo motors are in the desired position
+    if (vWrist_rot == step_wrist_rot)
+    {
+      step_wrist_rot = vWrist_rot;
+      //Debugging
+      Serial.print("Wrist rotation is: ");
+      Serial.println(step_wrist_rot);
+      exit = 0;
+    }
+    else
+    {
+      exit = 1;
+    }
+  }
+}
+
+void moveGripper(int stepDelay, int vgripper)
+{
+  if (stepDelay > 30)
+    stepDelay = 30;
+  if (stepDelay < 10)
+    stepDelay = 10;
+  if (vgripper < 10)
+    vgripper = 10;
+  if (vgripper > 73)
+    vgripper = 73;
+
+  int exit = 1;
+
+  // Until the all motors are in the desired position
+  while (exit)
+  {
+    if (vgripper != step_gripper)
+    {
+      gripper.write(step_gripper);
+      if (vgripper > step_gripper)
+      {
+        step_gripper++;
+      }
+      // One step beyond
+      if (vgripper < step_gripper)
+      {
+        step_gripper--;
+      }
+    }
+    //delay between each movement
+    delay(stepDelay);
+
+    //It checks if all the servo motors are in the desired position
+    if (vgripper == step_gripper)
+    {
+      step_gripper = vgripper;
+      //Debugging
+      Serial.print("Gripper is: ");
+      Serial.println(step_gripper);
       exit = 0;
     }
     else
@@ -383,7 +471,7 @@ void RoboticArmBegin()
   elbow.write(180);
   wrist_ver.write(170);
   wrist_rot.write(0);
-  gripper.write(73);
+  gripper.write(10);
 
   //Previous step motor position
   step_base = 0;
@@ -391,91 +479,9 @@ void RoboticArmBegin()
   step_elbow = 180;
   step_wrist_ver = 170;
   step_wrist_rot = 0;
-  step_gripper = 73;
+  step_gripper = 10;
 
   softStart(-35); // delayMicroseconds
-}
-
-void serialListener()
-{
-  digitalWrite(LED_BUILTIN, HIGH);
-  while (Serial.available())
-  {
-    delay(100);
-    c = Serial.read(); // reading the string sent by google voice
-    if (c == '#')
-    {
-      break;
-    }
-    Command += c;
-  }
-
-  //rial.println(Command.length());
-
-  if (Command.length() > 3)
-  {
-    digitalWrite(LED_BUILTIN, LOW);
-    Command.trim();
-    Serial.println(Command.length());
-    Serial.println(Command);
-    // Move Elbow
-    if (Command.startsWith("E"))
-    {
-      Command.replace("E", "");
-      inputNum = Command.toInt();
-      moveElbow(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    // Move Shoulder
-    else if (Command.startsWith("S"))
-    {
-      Command.replace("S", "");
-      inputNum = Command.toInt();
-      moveShoulder(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else if (Command.startsWith("B"))
-    {
-      Command.replace("B", "");
-      Serial.println(Command);
-      inputNum = Command.toInt();
-      Serial.println(inputNum);
-      moveBase(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else if (Command.startsWith("V"))
-    {
-      Command.replace("V", "");
-      inputNum = Command.toInt();
-      moveWrist_Ver(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else if (Command.startsWith("R"))
-    {
-      Command.replace("R", "");
-      inputNum = Command.toInt();
-      moveWrist_Rot(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else if (Command.startsWith("G"))
-    {
-      Command.replace("G", "");
-      inputNum = Command.toInt();
-      moveGripper(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else
-    {
-      Serial.println("Please enter a motor letter joined with an angle eg B60: ");
-      Command = "";
-    }
-  }
 }
 
 /*
@@ -508,3 +514,6 @@ void softwarePWM(int high_time, int low_time)
   digitalWrite(SOFT_START_CONTROL_PIN, LOW);
   delayMicroseconds(low_time);
 }
+/*****************************************************************************************************************************
+ END OF REGION
+ ****************************************************************************************************************************/
