@@ -14,11 +14,11 @@ This repository is for the Year Zero Robotic Arm project.
 
 * **PLEASE NOTE** that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
    >* M1 = base degrees. Allowed values from 0 to 180 degrees
-    * M2 = shoulder degrees. Allowed values from 15 to 165 degrees
-    * M3 = elbow degrees. Allowed values from 0 to 180 degrees
-    * M4 = wrist vertical degrees. Allowed values from 0 to 180 degrees
-    * M5 = wrist rotation degrees. Allowed values from 0 to 180 degrees
-    * M6 = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
+   >* M2 = shoulder degrees. Allowed values from 15 to 165 degrees
+   >* M3 = elbow degrees. Allowed values from 0 to 180 degrees
+   >* M4 = wrist vertical degrees. Allowed values from 0 to 180 degrees
+   >* M5 = wrist rotation degrees. Allowed values from 0 to 180 degrees
+   >* M6 = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
 
 ## Installation 
 
