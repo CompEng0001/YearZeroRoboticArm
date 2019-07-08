@@ -7,7 +7,7 @@
 */
 
 /*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 520) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING 
+   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 520) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  *******************************************************************************************************************/
 
 // Required library for Servo control
@@ -33,14 +33,14 @@ Servo gripper;
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
 
 int inputNum; // for angle
-char c; // for incoming byte from serial 
+char c; // for incoming byte from serial
 String Command; // for saving c to a string
 
 void setup()
 {
   // Open serial for communication
   Serial.begin(115200);
-  
+
   pinMode(LED_BUILTIN, OUTPUT);
   //initialization of RoboticArm safely
   RoboticArmBegin();
@@ -51,8 +51,9 @@ void setup()
   Serial.println("Remember the robotoic arm will only move when an excepted command is inputted:");
   Serial.println(" * Motor/Servo identifier then desired angle.... eg  Base to 60 degrees = B60");
   Serial.println(" * B = Base, S = Shoulder, E = Elbow, V = wristVertical, R = wristRotation");
-  Serial.println("If in doubt refer to documentations or ask for help!")
+  Serial.println("If in doubt refer to documentations or ask for help!");
 }
+
 void loop()
 {
   //Do not remove this line serialListener() the code will not work.
@@ -76,71 +77,96 @@ void serialListener()
     Command += c;
   }
 
-  if (Command.length() > 3)
+  while (!Serial.available())
   {
-    // Turn light off to show that a command is being processed
-    digitalWrite(LED_BUILTIN, LOW);
-    
-    Command.trim(); //Get rid of any whitespace
-    
-    // Move Elbow
-    if (Command.startsWith("E"))
+
+    int lastPos = Command.lastIndexOf("B");
+    int length = Command.length();
+    String motor = Command.substring(lastPos);
+
+
+    Serial.print("Last pos of B: ");
+    Serial.println(lastPos);
+
+    Serial.print("Length of Command: ");
+    Serial.println(length);
+
+    String angleString = Command.substring(lastPos + 1, length);
+
+    Serial.print("Angle in string = ");
+    Serial.println(angleString);
+
+    int angle = angleString.toInt();
+
+    Serial.print("Angle as int = ");
+    Serial.println(angle);
+
+    if (Command.length() > 3)
     {
-      Command.replace("E", "");
-      inputNum = Command.toInt();
-      moveElbow(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    // Move Shoulder
-    else if (Command.startsWith("S"))
-    {
-      Command.replace("S", "");
-      inputNum = Command.toInt();
-      moveShoulder(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    // Move Base
-    else if (Command.startsWith("B"))
-    {
-      Command.replace("B", "");
-      inputNum = Command.toInt();
-      moveBase(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    // Move WritsVer
-    else if (Command.startsWith("V"))
-    {
-      Command.replace("V", "");
-      inputNum = Command.toInt();
-      moveWrist_Ver(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    // Move wristRot
-    else if (Command.startsWith("R"))
-    {
-      Command.replace("R", "");
-      inputNum = Command.toInt();
-      moveWrist_Rot(20, inputNum);
-      delay(1000);
-      Command = "";
-    } 
-    // Move Gripper
-    else if (Command.startsWith("G"))
-    {
-      Command.replace("G", "");
-      inputNum = Command.toInt();
-      moveGripper(20, inputNum);
-      delay(1000);
-      Command = "";
-    }
-    else
-    {
-      Serial.println("Please enter a motor letter joined with an angle eg B60: ");
-      Command = "";
+      // Turn light off to show that a command is being processed
+      digitalWrite(LED_BUILTIN, LOW);
+
+      Command.trim(); //Get rid of any whitespace
+
+      // Move Elbow
+      if (Command.startsWith("E"))
+      {
+        Command.replace("E", "");
+        inputNum = Command.toInt();
+        moveElbow(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      // Move Shoulder
+      else if (Command.startsWith("S"))
+      {
+        Command.replace("S", "");
+        inputNum = Command.toInt();
+        moveShoulder(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      // Move Base
+      else if (motor.startsWith("B"))
+      {
+        Command.replace("B", "");
+        inputNum = Command.toInt();
+        moveBase(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      // Move WritsVer
+      else if (Command.startsWith("V"))
+      {
+        Command.replace("V", "");
+        inputNum = Command.toInt();
+        moveWrist_Ver(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      // Move wristRot
+      else if (Command.startsWith("R"))
+      {
+        Command.replace("R", "");
+        inputNum = Command.toInt();
+        moveWrist_Rot(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      // Move Gripper
+      else if (Command.startsWith("G"))
+      {
+        Command.replace("G", "");
+        inputNum = Command.toInt();
+        moveGripper(20, inputNum);
+        delay(1000);
+        Command = "";
+      }
+      else
+      {
+        Serial.println("Please enter a motor letter joined with an angle eg B60: ");
+        Command = "";
+      }
     }
   }
 }
@@ -515,5 +541,5 @@ void softwarePWM(int high_time, int low_time)
   delayMicroseconds(low_time);
 }
 /*****************************************************************************************************************************
- END OF REGION
+  END OF REGION
  ****************************************************************************************************************************/
