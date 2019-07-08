@@ -4,15 +4,15 @@
 This repository is for the Year Zero Robotic Arm project, included is Arduino sketches, software and some documentation.
 
 **Sketches**
-   * YearZeroRobotArmManualInstructions, gives you manaul control over each servo individually and is designed to be used via the command line or the [app]()
-   * YearZeroRobotArmMain, is to be used to automate all planned movements you calculated using the latter sketch.
+   * [YearZeroRobotArmManualInstructions](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmManualInstructions), gives you manaul control over each servo individually and is designed to be used via the command line or the [Robotic Arm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App)
+   * [YearZeroRobotArmMain](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmMain), is to be used to automate all planned movements you calculated using the latter sketch.
 
 **App**
-   * The [RoboticArm app]() has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is was developed for Android only
+   * The [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is was developed for Android only
      The App is available for you to download on your own device, but as this is open source you install it **at your own risk**, as you should only install from trustworthy sources. 
 
 **Specification** 
-   * [Specification]() - link for specification sheet, please read some useful information inside.
+   * [Specification](https://github.com/CompEng0001/YearZeroRoboticArm/blob/master/Specifications.md) - link for specification sheet, please read some useful information inside.
 
 ## Installation 
 
@@ -30,17 +30,16 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 > Make sure you use the right numbered servo motors (numbering on the end of the cable near the connector) in the right joints. And be a bit careful because mounting the servos with the screws causes the plastic to "bloom" a bit and it will never be quite as tight if you have to remove them and put them back in again. Although the plastic pentagons are pre-attached to the servo hub, but I found that some were a few degrees off center, so you just have to adjust your code for that,  **AGAIN IF YOU NEED HELP ASK!**.
 
-## Health and Safety
-
-* DO NOT put any body parts or hair near moving parts and when the robotic arm is in operation 
-* DO NOT exceed max load 200g
-
 ## Acknowledgements 
 
 * The sketch has been developed to use key functionality from [Braccio Robotic Arm](https://github.com/arduino-org/arduino-library-braccio) so students do not have to download the libraries. 
    * Further modification includes Serial I/O
 **PLEASE NOTE** that this is only to be used with the Braccio Shield V4 becasue the softstart function protects the servo motors and the junctions from damages
 
-## WARNING 
+**WARNING** 
+There has been a request to change some code in the original source code linked above, [mix-up of wrist values](https://github.com/arduino-org/arduino-library-braccio/pull/4/commits/4ee82eac74b98196bec2413bd87deda3019e3a5c). So please only use the code that is provided in this repository as the change has been incorporated.
 
-There has been a request to change some code, [mix-up of wrist values](https://github.com/arduino-org/arduino-library-braccio/pull/4/commits/4ee82eac74b98196bec2413bd87deda3019e3a5c). So please only use the code I have provided in this repository as I have made this change.
+## Health and Safety
+
+* DO NOT put any body parts or hair near moving parts and when the robotic arm is in operation 
+* DO NOT exceed max load 200g
