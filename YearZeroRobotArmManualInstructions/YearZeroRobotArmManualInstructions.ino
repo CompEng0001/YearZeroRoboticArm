@@ -1,13 +1,16 @@
 /* Sketch amalgamated by: Richard Blair(CompEng0001)
-   Date: 04/07/19
-   Version: 1.2
+   Date: 08/07/19
+   Version: 2.1
    Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
+          Input a motor and desired angle into the serial montior and the robotic arm will move. 
+          Follow on screen instructions
+          This sketch can be used in conjuction with the app in the repository 
    License: GNU Lesser General Public License
    Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
 */
 
 /*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 520) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 10 TO 531) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  *******************************************************************************************************************/
 // Required library for Servo control
 #include <Servo.h>
@@ -71,78 +74,87 @@ void serialListener()
     }
     Command += c;
   }
-
-  if (Command.length() > 2)
+  if(Command.length() > 2)
   {
-    // Turn light off to show that a command is being processed
+     // Turn light off to show that a command is being processed
     digitalWrite(LED_BUILTIN, LOW);
     Command.trim(); //Get rid of any whitespace
-    Serial.println(Command);
-    
-    // Move Elbow
-    if (Command.startsWith("E"))
-    {
-      int newAngle = whichMotor(Command,"E");
-      moveElbow(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-
-    // Move Shoulder
-    else if (Command.startsWith("S"))
-    {
-      int newAngle = whichMotor(Command,"S");
-      moveShoulder(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-    
-    // Move Base
-    else if (Command.startsWith("B"))
-    {
-      int newAngle = whichMotor(Command,"B");
-      moveBase(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-
-    // Move WritsVer
-    else if (Command.startsWith("V"))
-    {
-    int newAngle = whichMotor(Command,"V");  
-      moveWrist_Ver(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-
-    // Move wristRot
-    else if (Command.startsWith("R"))
-    {
-      int newAngle = whichMotor(Command,"R");
-      moveWrist_Rot(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-
-    // Move Gripper
-    else if (Command.startsWith("G"))
-    {
-      int newAngle = whichMotor(Command,"G");
-      moveGripper(20, newAngle);
-      delay(1000);
-      Command = "";
-    }
-    else
-    {
-      Serial.println("Please enter a motor letter joined with an angle eg B60: ");
-      Command = "";
-    }
+    //Serial.println(Command);
+    processCommand(); // Action on the String Command to find out which motors to move
   }
 }
 
-/*
+/**
+ * processCommand actions the String Commmand by findings the indentifier and then the angle ie B60
+ */
+void processCommand()
+{
+  // Move Elbow
+  if (Command.startsWith("E"))
+  {
+    int newAngle = whichMotor(Command,"E");
+    moveElbow(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
 
-*/
+  // Move Shoulder
+  else if (Command.startsWith("S"))
+  {
+    int newAngle = whichMotor(Command,"S");
+    moveShoulder(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
+  
+  // Move Base
+  else if (Command.startsWith("B"))
+  {
+    int newAngle = whichMotor(Command,"B");
+    moveBase(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
+
+  // Move WritsVer
+  else if (Command.startsWith("V"))
+  {
+    int newAngle = whichMotor(Command,"V");  
+    moveWrist_Ver(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
+
+  // Move wristRot
+  else if (Command.startsWith("R"))
+  {
+    int newAngle = whichMotor(Command,"R");
+    moveWrist_Rot(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
+
+  // Move Gripper
+  else if (Command.startsWith("G"))
+  {
+    int newAngle = whichMotor(Command,"G");
+    moveGripper(20, newAngle);
+    delay(1000);
+    Command = "";
+  }
+  else
+  {
+    Serial.println("Please enter a motor letter joined with an angle eg B60: ");
+    Command = "";
+  }
+}
+
+/**
+ * Indetifies the right motor to move by searchin the String Command and checking against the input motor
+ * @param l_Command is the Commmand received from the serail montior
+ * @param l_motor is the motor indentifier that must match parent condition.
+ * @returnparam angle is the new angle the identified motor will position to.
+ */
 int whichMotor(String l_Command,String l_Motor)
 {
   int lastPos = l_Command.lastIndexOf(l_Motor);
@@ -151,10 +163,10 @@ int whichMotor(String l_Command,String l_Motor)
   int angle = angleString.toInt();
 
   //For Degbugging
-  Serial.print("Angle in string = ");
-  Serial.println(angleString);
-  Serial.print("Angle as int = ");
-  Serial.println(angle);
+  //Serial.print("Angle in string = ");
+  //Serial.println(angleString);
+  //Serial.print("Angle as int = ");
+  //Serial.println(angle);
   return angle;
 }
 
@@ -205,7 +217,6 @@ void moveBase(int stepDelay, int vBase)
     }
   }
 }
-
 
 void moveShoulder(int stepDelay, int vShoulder)
 {
@@ -267,8 +278,8 @@ void moveElbow(int stepDelay, int vElbow)
     stepDelay = 10;
   if (vElbow < 0)
     vElbow = 0;
-             if (vElbow > 180)
-               vElbow = 180;
+  if (vElbow > 180)
+    vElbow = 180;
   int exit = 1;
   // Until the all motors are in the desired position
   while (exit)
@@ -458,7 +469,6 @@ void moveGripper(int stepDelay, int vgripper)
    You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
    SOFT_START_DISABLED disable the Braccio movements
 */
-
 void RoboticArmBegin()
 {
   //Calling Braccio.begin(SOFT_START_DISABLED) the Softstart is disabled and you can use the pin 12
@@ -491,7 +501,7 @@ void RoboticArmBegin()
   softStart(-35); // delayMicroseconds
 }
 
-/*
+/**
     This function, used only with the Braccio Shield V4 and greater,
     turn ON the Braccio softly and save Braccio from brokes.
     The SOFT_START_CONTROL_PIN is used as a software PWM
@@ -507,7 +517,7 @@ void softStart(int soft_start_level)
   digitalWrite(SOFT_START_CONTROL_PIN, HIGH);
 }
 
-/*
+/**
    Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
    @param high_time: the time in the logic level high
    @param low_time: the time in the logic level low

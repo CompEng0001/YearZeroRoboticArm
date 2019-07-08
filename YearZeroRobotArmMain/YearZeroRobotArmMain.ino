@@ -1,14 +1,14 @@
-/* Sketch amalgamated by: Richard Blair
-   Date: 14/06/19
-   Version: 1.0.3
-   Useage: Year Zero Project Two
+/* Sketch amalgamated by: Richard Blair(CompEng0001)
+   Date: 08/07/19
+   Version:2.13
+   Useage: Year Zero Project Two, used only for automated movement that you have calculated through the manual sketch
    License: GNU Lesser General Public License
-   Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
+   Acknowledgements: TinkerKit Braccio -> https://github.com/arduino-org/arduino-library-braccio
 */
 
-/*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THIS REGION (LINE 9 TO 37) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
- *******************************************************************************************************************/
+/*****************************************************************************************************************************
+   DO NOT CHANGE ANYTHING IN THIS REGION (LINE 9 TO 48) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+ *****************************************************************************************************************************/
 
 // Required library for Servo control
 #include <Servo.h>
@@ -42,6 +42,8 @@ void setup()
 
   // Initialization of RoboticArm safely
   RoboticArmBegin();
+
+  Serial.println("This sketch will run your commands in sequence you have manually calculated.")
 }
 
 /*****************************************************************************************************************
@@ -61,24 +63,23 @@ void loop()
   */
 
   digitalWrite(LED_BUILTIN, HIGH); 
-                  //(SD, BA,   SH,   EL,   WV,  WR,  GR);
-  RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
+                  //(SD,  BA,   SH, EL,  WV,  WR,  GR);
+  RoboticArmMovement(20,  180,  30, 10,  60,  90,  73);
   //Wait 1 second
   delay(1000);
 
-                  //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
-  RoboticArmMovement(20,  0,   120,  10,  100,   10,  10);
+                  //(SD,  BA,  SH,   EL,  WV,  WR,  GR);
+  RoboticArmMovement(20,  0,   120,  10,  100, 10,  10);
   //Wait 1 second
   delay(1000);
 }
 
 /*****************************************************************************************************************************
-  DO NOT CHANGE ANYTHING IN THIS REGION (LINE X TO Y) OR RISK DAMAGING THE ROBOTIC ARM
+  DO NOT CHANGE ANYTHING IN THIS REGION (end of region is approx line 300) OR RISK DAMAGING THE ROBOTIC ARM
  ****************************************************************************************************************************/
 
 /**
    This functions allow you to control all the servo motors
-
    @param stepDelay The delay between each servo movement
    @param vBase next base servo motor degree
    @param vShoulder next shoulder servo motor degree
