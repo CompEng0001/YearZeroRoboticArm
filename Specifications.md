@@ -23,6 +23,7 @@ It is recommended to power the board via the jack connection with a regulated 5 
 
 >Braccio Shield: The maximum length and width of the Braccio Shield PCB are 2.7 and 2.1 inches respectively, with the power jack extending beyond the former dimension. Four screw holes allow the board to be attached to a surface or case. Note that the distance between digital pins 7 and 8 is 160 mil (0.16"), not an even multiple of the 100 mil spacing of the other pins.
 
+
 ## Fully assembled Braccio Kit:
 
 * Weight: 792 g
@@ -32,6 +33,7 @@ It is recommended to power the board via the jack connection with a regulated 5 
 * Gripper Width: 90 mm
 * Cable length: 40 cm
 * Load Capacity: Maximum weight at 32 cm operating distance: 150g, Maximum weight at the minimal Braccio configuration: 400g
+
 
 ## Servo Technical Specification
 
