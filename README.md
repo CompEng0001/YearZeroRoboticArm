@@ -8,8 +8,10 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
    * [YearZeroRobotArmMain](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmMain), is to be used to automate all planned movements you calculated using the latter sketch.
 
 **App**
-   * The [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is developed for Android only
-     The App is available for you to download on your own device, but as this is open source you install it **at your own risk**, as you should only install from trustworthy sources. 
+   * The [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is developed for Android only.
+     The App is available for you to download on your own device, but as this is open source you install it **at your own risk**, as you should only install from trustworthy sources.
+   * Four Screen shots have been included with the [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) folder.
+   * Code is available to view as an image in the same folder as the [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App)
 
 **Specification** 
    * [Specification](https://github.com/CompEng0001/YearZeroRoboticArm/blob/master/Specifications.md) - link for specification sheet, please read some useful information inside.
