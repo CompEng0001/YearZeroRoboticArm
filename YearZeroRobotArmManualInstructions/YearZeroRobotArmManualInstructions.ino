@@ -1,17 +1,19 @@
-/* Sketch amalgamated by: Richard Blair(CompEng0001)
-   Date: 08/07/19
-   Version: 2.1
-   Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
+/***********************************************************************************************************************
+  Sketch amalgamated by: Richard Blair(CompEng0001)
+  Date: 09/07/19
+  Version: 2.2
+  Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
           Input a motor and desired angle into the serial montior and the robotic arm will move. 
-          Follow on screen instructions
+          Follow on Serial montior instructions
           This sketch can be used in conjuction with the app in the repository 
-   License: GNU Lesser General Public License
-   Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
-*/
+  License: GNU Lesser General Public License
+  Documentation: https://github.com/CompEng0001/YearZeroRoboticArm
+  Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
+***********************************************************************************************************************/
 
-/*******************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 10 TO 531) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
- *******************************************************************************************************************/
+/************************************************************************************************************************************
+  DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 537) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+ ************************************************************************************************************************************/
 // Required library for Servo control
 #include <Servo.h>
 //The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using
@@ -462,12 +464,12 @@ void moveGripper(int stepDelay, int vgripper)
 }
 
 /**
-   Braccio initialization and set intial position
-   Modifing this function you can set up the initial position of all the
-   servo motors of Braccio
-   @param soft_start_level: default value is 0 (SOFT_START_DEFAULT)
-   You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
-   SOFT_START_DISABLED disable the Braccio movements
+  Braccio initialization and set intial position
+  Modifing this function you can set up the initial position of all the
+  servo motors of Braccio
+  @param soft_start_level: default value is 0 (SOFT_START_DEFAULT)
+  You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
+  SOFT_START_DISABLED disable the Braccio movements
 */
 void RoboticArmBegin()
 {
@@ -518,9 +520,9 @@ void softStart(int soft_start_level)
 }
 
 /**
-   Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
-   @param high_time: the time in the logic level high
-   @param low_time: the time in the logic level low
+  Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
+  @param high_time: the time in the logic level high
+  @param low_time: the time in the logic level low
 */
 void softwarePWM(int high_time, int low_time)
 {

@@ -1,14 +1,22 @@
-/* Sketch amalgamated by: Richard Blair(CompEng0001)
-   Date: 08/07/19
-   Version:2.13
-   Useage: Year Zero Project Two, used only for automated movement that you have calculated through the manual sketch
-   License: GNU Lesser General Public License
-   Acknowledgements: TinkerKit Braccio -> https://github.com/arduino-org/arduino-library-braccio
-*/
+/***********************************************************************************************************************
+  Sketch amalgamated by: Richard Blair
+  Date: 09/07/19
+  Version: 2.2
+  Useage: Year Zero Project Two to control the robotic arm autonomously 
+          Once you calculated all of the movements via the manual sketch 
+          you can use this one to automate the process.
+          Consider one movement to all six servos in one go, so: 
+                          //(SD, BA,   SH,   EL,   WV,  WR,  GR);
+          RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
+  License: GNU Lesser General Public License
+  Documentation: https://github.com/CompEng0001/YearZeroRoboticArm
+  License: GNU Lesser General Public License
+  Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
+***********************************************************************************************************************/
 
-/*****************************************************************************************************************************
-   DO NOT CHANGE ANYTHING IN THIS REGION (LINE 9 TO 48) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
- *****************************************************************************************************************************/
+/***************************************************************************************************************************
+  DO NOT CHANGE ANYTHING IN THIS REGION (LINE 18 TO 56) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+ ***************************************************************************************************************************/
 
 // Required library for Servo control
 #include <Servo.h>
@@ -42,17 +50,16 @@ void setup()
 
   // Initialization of RoboticArm safely
   RoboticArmBegin();
-
-  Serial.println("This sketch will run your commands in sequence you have manually calculated.")
 }
 
 /*****************************************************************************************************************
- END OF SECTION, YOU CAN ADD YOUR OWN VARIABLES 
+ END OF REGION
  *****************************************************************************************************************/
 
 void loop()
 {
-  /*
+    digitalWrite(LED_BUILTIN, HIGH); // Ready for first command.
+  /*****************************************************************************************************************
     SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
     BA = base degrees. Allowed values from 0 to 180 degrees
     SH = shoulder degrees. Allowed values from 15 to 165 degrees
@@ -60,26 +67,26 @@ void loop()
     WV = wrist vertical degrees. Allowed values from 0 to 180 degrees
     WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
-  */
+  ******************************************************************************************************************/
 
-  digitalWrite(LED_BUILTIN, HIGH); 
-                  //(SD,  BA,   SH, EL,  WV,  WR,  GR);
-  RoboticArmMovement(20,  180,  30, 10,  60,  90,  73);
+                  //(SD, BA,   SH,   EL,   WV,  WR,  GR);
+  RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
   //Wait 1 second
   delay(1000);
 
-                  //(SD,  BA,  SH,   EL,  WV,  WR,  GR);
-  RoboticArmMovement(20,  0,   120,  10,  100, 10,  10);
+                  //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
+  RoboticArmMovement(20,  0,   120,  10,  100,   10,  10);
   //Wait 1 second
   delay(1000);
 }
 
 /*****************************************************************************************************************************
-  DO NOT CHANGE ANYTHING IN THIS REGION (end of region is approx line 300) OR RISK DAMAGING THE ROBOTIC ARM
+  DO NOT CHANGE ANYTHING IN THIS REGION OR RISK DAMAGING THE ROBOTIC ARM
  ****************************************************************************************************************************/
 
 /**
    This functions allow you to control all the servo motors
+
    @param stepDelay The delay between each servo movement
    @param vBase next base servo motor degree
    @param vShoulder next shoulder servo motor degree
@@ -248,8 +255,8 @@ void RoboticArmBegin()
   base.attach(11);
   shoulder.attach(10);
   elbow.attach(9);
-  wrist_rot.attach(6);
-  wrist_ver.attach(5);
+  wrist_ver.attach(6);
+  wrist_rot.attach(5);
   gripper.attach(3);
 
   //For each step motor this set up the initial degree
