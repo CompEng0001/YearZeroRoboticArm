@@ -479,24 +479,24 @@ void RoboticArmBegin()
   base.attach(11);
   shoulder.attach(10);
   elbow.attach(9);
-  wrist_rot.attach(6);
-  wrist_ver.attach(5);
+  wrist_ver.attach(6);
+  wrist_rot.attach(5);
   gripper.attach(3);
 
   //For each step motor this set up the initial degree
-  base.write(0);
-  shoulder.write(100);
+  base.write(90);
+  shoulder.write(90);
   elbow.write(180);
-  wrist_ver.write(170);
-  wrist_rot.write(0);
+  wrist_ver.write(180);
+  wrist_rot.write(90);
   gripper.write(10);
 
   //Previous step motor position
-  step_base = 0;
-  step_shoulder = 100;
+  step_base = 90;
+  step_shoulder = 90;
   step_elbow = 180;
-  step_wrist_ver = 170;
-  step_wrist_rot = 0;
+  step_wrist_ver = 180;
+  step_wrist_rot = 90;
   step_gripper = 10;
   softStart(-35); // delayMicroseconds
 }
