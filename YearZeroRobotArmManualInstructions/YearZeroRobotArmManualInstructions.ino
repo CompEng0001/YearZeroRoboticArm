@@ -54,7 +54,8 @@ void setup()
   Serial.println(" * Motor/Servo identifier then desired angle.... eg  Base to 60 degrees = B60");
   Serial.println(" * B = Base, S = Shoulder, E = Elbow, V = wristVertical, R = wristRotation");
   Serial.println("If in doubt refer to documentations or ask for help!");
-}
+  delay(1000);
+  }
 
 void loop()
 {
