@@ -50,6 +50,13 @@ void setup()
 
   // Initialization of RoboticArm safely
   RoboticArmBegin();
+
+    // Some instructions to screen
+  Serial.println("The robotic arm will follow the sequence of instrunctions listed in loop().");
+  Serial.println("This will begin when the led turns on");
+  Serial.println("REMEMBER: WHEN THE ROBOT IS IN MOTION DO NOT ENTER THE OPERATING ZONE")
+  Serial.println("If in doubt refer to documentations or ask for help!");
+  delay(1000);
 }
 
 /*****************************************************************************************************************
