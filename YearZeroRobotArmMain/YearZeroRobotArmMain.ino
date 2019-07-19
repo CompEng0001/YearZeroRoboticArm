@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
-  Sketch amalgamated by: Richard Blair
-  Date: 09/07/19
-  Version: 2.2
+  Sketch amalgamated by: Rich Blair
+  Date: 19/07/19
+  Version: 2.3
   Useage: Year Zero Project Two to control the robotic arm autonomously 
           Once you calculated all of the movements via the manual sketch 
           you can use this one to automate the process.
@@ -15,7 +15,7 @@
 ***********************************************************************************************************************/
 
 /***************************************************************************************************************************
-  DO NOT CHANGE ANYTHING IN THIS REGION (LINE 18 TO 56) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+  DO NOT CHANGE ANYTHING IN THIS REGION (LINE 18 TO 64) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  ***************************************************************************************************************************/
 
 // Required library for Servo control
