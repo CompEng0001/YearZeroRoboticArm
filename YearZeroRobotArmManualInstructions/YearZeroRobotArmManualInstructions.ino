@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
-  Sketch amalgamated by: Richard Blair(CompEng0001)
+  Sketch amalgamated by: Rich Blair(CompEng0001)
   Date: 09/07/19
-  Version: 2.2
+  Version: 2.3
   Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
           Input a motor and desired angle into the serial montior and the robotic arm will move. 
           Follow on Serial montior instructions
@@ -79,7 +79,7 @@ void serialListener()
   }
   if(Command.length() > 2)
   {
-     // Turn light off to show that a command is being processed
+    // Turn light off to show that a command is being processed
     digitalWrite(LED_BUILTIN, LOW);
     Command.trim(); //Get rid of any whitespace
     //Serial.println(Command);
@@ -145,6 +145,7 @@ void processCommand()
     delay(1000);
     Command = "";
   }
+  // Inform user to enter a legal command
   else
   {
     Serial.println("Please enter a motor letter joined with an angle eg B60: ");
@@ -153,7 +154,7 @@ void processCommand()
 }
 
 /**
- * Indetifies the right motor to move by searchin the String Command and checking against the input motor
+ * Indetifies the right motor to move by searching the String Command and checking against the input motor
  * @param l_Command is the Commmand received from the serail montior
  * @param l_motor is the motor indentifier that must match parent condition.
  * @returnparam angle is the new angle the identified motor will position to.
