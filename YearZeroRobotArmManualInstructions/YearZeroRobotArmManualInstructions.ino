@@ -1,7 +1,7 @@
 /***********************************************************************************************************************
   Sketch amalgamated by: Rich Blair(CompEng0001)
-  Date: 09/07/19
-  Version: 2.3
+  Date: 19/07/19
+  Version: 2.4
   Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
           Input a motor and desired angle into the serial montior and the robotic arm will move. 
           Follow on Serial montior instructions
@@ -12,18 +12,17 @@
 ***********************************************************************************************************************/
 
 /************************************************************************************************************************************
-  DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 13 TO 537) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+  DO NOT CHANGE ANYTHING IN THE REGION BELOW (LINES 15 TO 559) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  ************************************************************************************************************************************/
 // Required library for Servo control
 #include <Servo.h>
-//The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using
-//a Braccio shield V4 or newer
+// The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using a Braccio shield V4 or newer
 #define SOFT_START_CONTROL_PIN 12
 //Low and High Limit Timeout for the Software PWM
 #define LOW_LIMIT_TIMEOUT 2000
 #define HIGH_LIMIT_TIMEOUT 6000
-// setup of Servo objects *note* names to represent position of servo on robotic arm
 
+// setup of Servo objects *note* names to represent position of servo on robotic arm
 Servo base;
 Servo shoulder;
 Servo elbow;
@@ -33,10 +32,8 @@ Servo gripper;
 
 // set up angles for each servo object
 int step_base, step_shoulder, step_elbow, step_wrist_ver, step_wrist_rot, step_gripper;
-
 int inputNum; // for angle
 char c; // for incoming byte from serial
-
 String Command; // for saving c to a string
 
 void setup()
@@ -44,16 +41,35 @@ void setup()
   // Open serial for communication
   Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT);
-
+  Serial.println("Initialising all servos please wait...");
   //initialization of RoboticArm safely
   RoboticArmBegin();
+  Serial.println("Initialisation complete!");
+  Serial.println("");
+  
   // Some instructions to screen
-  Serial.println("The robot is ready to receive commands when the led is on.");
-  Serial.println("When the light is off your command will be processed");
-  Serial.println("Remember the robotoic arm will only move when an excepted command is inputted:");
-  Serial.println(" * Motor/Servo identifier then desired angle.... eg  Base to 60 degrees = B60");
-  Serial.println(" * B = Base, S = Shoulder, E = Elbow, V = wristVertical, R = wristRotation");
-  Serial.println("If in doubt refer to documentations or ask for help!");
+ 
+  Serial.println("######################## OPERATING INFORMATION #######################");
+  Serial.println("");
+  Serial.println("The robotoic arm will only move when an excepted command is inputted:");
+  Serial.println("");
+  Serial.println("Allowed values for each servo are as follows:");
+  Serial.println("");
+  Serial.println(" * Base           = B and ALLOWED values are 0 to 180");
+  Serial.println(" * Shoulder       = S and ALLOWED values are 15 to 165");
+  Serial.println(" * Elbow          = E and ALLOWED values are 0 to 180");
+  Serial.println(" * Wrist vertical = V and ALLOWED values are 0 to 180");
+  Serial.println(" * Wrist Rotation = R and ALLOWED values are 0 to 180");
+  Serial.println(" * Gripper        = G and ALLOWED values are 10 to 73");
+  Serial.println("");
+  Serial.println(" * Eg Base to 60 degrees = B60");
+  Serial.println("");
+  Serial.println("The robotic arm is ready to receive commands when the led is ON.");
+  Serial.println("When the light is OFF when your command is being processed");
+  Serial.println("");
+  Serial.println("If in doubt refer to documentation or ask for help!");
+  Serial.println("");
+  Serial.println("##################### END OF OPERATING INFORMATION ####################");
   delay(1000);
   }
 
@@ -502,6 +518,7 @@ void RoboticArmBegin()
   step_wrist_ver = 180;
   step_wrist_rot = 90;
   step_gripper = 10;
+ 
   softStart(-35); // delayMicroseconds
 }
 
@@ -516,9 +533,13 @@ void softStart(int soft_start_level)
   long int tmp = millis();
   while (millis() - tmp < LOW_LIMIT_TIMEOUT)
     softwarePWM(80 + soft_start_level, 450 - soft_start_level); //the sum should be 530usec
+  Serial.println();
+  Serial.println("...Patience is a Virtue...");
+  Serial.println();
   while (millis() - tmp < HIGH_LIMIT_TIMEOUT)
     softwarePWM(75 + soft_start_level, 430 - soft_start_level); //the sum should be 505usec
   digitalWrite(SOFT_START_CONTROL_PIN, HIGH);
+  
 }
 
 /**
