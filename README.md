@@ -32,6 +32,26 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 > Make sure you use the right numbered servo motors (numbering on the end of the cable near the connector) in the right joints. And be a bit careful because mounting the servos with the screws causes the plastic to "bloom" a bit and it will never be quite as tight if you have to remove them and put them back in again. Although the plastic pentagons are pre-attached to the servo hub, but I found that some were a few degrees off center, so you just have to adjust your code for that,  **AGAIN IF YOU NEED HELP ASK!**.
 
+## Operational Information 
+
+To avoid damage to servos serveral key functions are implemented in code, this takes a few seconds be patient after all it is a virtue.
+
+The robotoic arm will only move when an excepted command is inputted:
+
+Allowed values for each servo are as follows:
+
+ * Base           = B and ALLOWED values are 0 to 180
+ * Shoulder       = S and ALLOWED values are 15 to 165
+ * Elbow          = E and ALLOWED values are 0 to 180
+ * Wrist vertical = V and ALLOWED values are 0 to 180
+ * Wrist Rotation = R and ALLOWED values are 0 to 180
+ * Gripper        = G and ALLOWED values are 10 to 73
+
+ * Eg Base to 60 degrees = B60
+
+The robotic arm is ready to receive commands when the led is ON.
+When the light is OFF when your command is being processed
+
 ## Acknowledgements 
 
 * The sketch has been developed to use key functionality from [Braccio Robotic Arm](https://github.com/arduino-org/arduino-library-braccio) so students do not have to download the libraries. 
