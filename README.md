@@ -57,7 +57,9 @@ When the light is OFF when your command is being processed
 ### Automation code 
 
    **ORDER OF OPERATION** Robotic Arm moves in this order:
+
     * base -> shoulder -> elbow -> wrist vertical -> wrist rotation -> gripper 
+    
    **Plan your movements accordingly**
 
 ## Acknowledgements 
