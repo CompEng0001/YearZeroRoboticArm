@@ -41,7 +41,15 @@ void setup()
   // Open serial for communication
   Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT);
+  Serial.println("Please stand back for your saftey....");
   Serial.println("Initialising all servos please wait...");
+  Serial.println("..in 3 seconds.");
+  delay(1000);
+  Serial.print(".. 2 seconds");
+  delay(1000);
+  Serial.print(".. 1 seconds");
+  delay(1000);
+  Serial.println("STAND BACK");
   //initialization of RoboticArm safely
   RoboticArmBegin();
   Serial.println("Initialisation complete!");
