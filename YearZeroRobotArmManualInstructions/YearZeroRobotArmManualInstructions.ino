@@ -70,6 +70,8 @@ void setup()
   Serial.println(" * Wrist Rotation = R and ALLOWED values are 0 to 180");
   Serial.println(" * Gripper        = G and ALLOWED values are 10 to 73");
   Serial.println("");
+  Serial.println(" * Home           = HOM");
+  Serial.println("")
   Serial.println(" * Eg Base to 60 degrees = B60");
   Serial.println("");
   Serial.println("The robotic arm is ready to receive commands when the led is ON.");
@@ -79,6 +81,9 @@ void setup()
   Serial.println("");
   Serial.println("##################### END OF OPERATING INFORMATION ####################");
   delay(1000);
+
+  Serial.println("");
+  Serial.println("In Home position: B90 S90 E180 V180 R90 G10");
   }
 
 void loop()
@@ -169,7 +174,7 @@ void processCommand()
     delay(1000);
     Command = "";
   }
-  else if(Commmad.startsWith("O")
+  else if(Commad.startsWith("H"))
   {
     OriginalPosition();
     delay(1000);
@@ -517,6 +522,8 @@ void OriginalPosition()
   step_wrist_ver = 180;
   step_wrist_rot = 90;
   step_gripper = 10;
+
+  Serial.println("In Home position: B90 S90 E180 V180 R90 G10");
 }
 
 /**
