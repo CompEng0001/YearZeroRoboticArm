@@ -34,7 +34,9 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 ## Operational Information 
 
-To avoid damage to servos serveral key functions are implemented in code, this takes a few seconds be patient after all it is a virtue.
+### Manual Code
+
+**To avoid damage to servos** serveral key functions are implemented in code, this takes a few seconds be patient after all it is a virtue.
 
 The robotoic arm will only move when an excepted command is inputted:
 
@@ -47,10 +49,16 @@ Allowed values for each servo are as follows:
  * Wrist Rotation = R and ALLOWED values are 0 to 180
  * Gripper        = G and ALLOWED values are 10 to 73
 
- * Eg Base to 60 degrees = B60
+ * Eg Base to 60 degrees = **B60**
 
 The robotic arm is ready to receive commands when the led is ON.
 When the light is OFF when your command is being processed
+
+### Automation code 
+
+   **ORDER OF OPERATION** Robotic Arm moves in this order:
+    base -> shoulder -> elbow -> wrist vertical -> wrist rotation -> gripper 
+   **Plan your movements accordingly**
 
 ## Acknowledgements 
 
