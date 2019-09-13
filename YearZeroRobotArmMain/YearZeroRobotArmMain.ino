@@ -6,8 +6,8 @@
           Once you calculated all of the movements via the manual sketch 
           you can use this one to automate the process.
           Consider one movement to all six servos in one go, so: 
-                          //(SD, BA,   SH,   EL,   WV,  WR,  GR);
-          RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
+                          //(SD,  BA,    SH,   EL,   WV,   WR,  GR);
+          RoboticArmMovement(20,  180,   30,   10,   60,   90,  73);
   License: GNU Lesser General Public License
   Documentation: https://github.com/CompEng0001/YearZeroRoboticArm
   License: GNU Lesser General Public License
@@ -15,7 +15,7 @@
 ***********************************************************************************************************************/
 
 /***************************************************************************************************************************
-  DO NOT CHANGE ANYTHING IN THIS REGION (LINE 18 TO 64) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
+  DO NOT CHANGE ANYTHING IN THIS REGION (LINE 18 TO 67) OR THE CODE WILL NOT WORK AND WILL CAUSE YOU HOURS/DAYS OF DEBUGGING
  ***************************************************************************************************************************/
 
 // Required library for Servo control
@@ -52,20 +52,24 @@ void setup()
   RoboticArmBegin();
 
     // Some instructions to screen
+  Serial.println("######################## OPERATING INFORMATION #######################");
+  Serial.println("");
   Serial.println("The robotic arm will follow the sequence of instrunctions listed in loop().");
   Serial.println("This will begin when the led turns on");
   Serial.println("REMEMBER: WHEN THE ROBOT IS IN MOTION DO NOT ENTER THE OPERATING ZONE")
   Serial.println("If in doubt refer to documentations or ask for help!");
+  Serial.println("");
+  Serial.println("##################### END OF OPERATING INFORMATION ####################");
   delay(1000);
 }
 
 /*****************************************************************************************************************
- END OF REGION
+  END OF REGION
  *****************************************************************************************************************/
 
 void loop()
 {
-    digitalWrite(LED_BUILTIN, HIGH); // Ready for first command.
+  digitalWrite(LED_BUILTIN, HIGH); // Ready for first command.
   /*****************************************************************************************************************
     SD = a milliseconds delay between the movement of each servo.  Allowed values from 10 to 30 msec.
     BA = base degrees. Allowed values from 0 to 180 degrees
@@ -75,16 +79,17 @@ void loop()
     WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   ******************************************************************************************************************/
-
-                  //(SD, BA,   SH,   EL,   WV,  WR,  GR);
-  RoboticArmMovement(20,  180,   30, 10,   60,   90,  73);
-  //Wait 1 second
+  Serial.println("First Movement")
+                  //(SD,  BA,   SH,   EL,   WV,  WR,  GR);
+  RoboticArmMovement(20,  180,  30,   10,   60,  90,  73);
+  //Wait 1 second recommended for power to discharge from the servos 
   delay(1000);
 
+  Serial.println("Second Movement")
                   //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
-  RoboticArmMovement(20,  0,   120,  10,  100,   10,  10);
-  //Wait 1 second
-  delay(1000);
+  RoboticArmMovement(20,  0,   120,  10,  100,  10,  10);
+  // Wait 1 second recommended for power to discharge from the servos
+  delay(1000);  
 }
 
 /*****************************************************************************************************************************
@@ -92,15 +97,15 @@ void loop()
  ****************************************************************************************************************************/
 
 /**
-   This functions allow you to control all the servo motors
+  This functions allow you to control all the servo motors
 
-   @param stepDelay The delay between each servo movement
-   @param vBase next base servo motor degree
-   @param vShoulder next shoulder servo motor degree
-   @param vElbow next elbow servo motor degree
-   @param vWrist_ver next wrist rotation servo motor degree
-   @param vWrist_rot next wrist vertical servo motor degree
-   @param vgripper next gripper servo motor degree
+  @param stepDelay The delay between each servo movement
+  @param vBase next base servo motor degree
+  @param vShoulder next shoulder servo motor degree
+  @param vElbow next elbow servo motor degree
+  @param vWrist_ver next wrist rotation servo motor degree
+  @param vWrist_rot next wrist vertical servo motor degree
+  @param vgripper next gripper servo motor degree
 */
 void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int vWrist_ver, int vWrist_rot, int vgripper)
 {
@@ -245,12 +250,12 @@ void RoboticArmMovement(int stepDelay, int vBase, int vShoulder, int vElbow, int
 }
 
 /**
-   Braccio initialization and set intial position
-   Modifing this function you can set up the initial position of all the
-   servo motors of Braccio
-   @param soft_start_level: default value is 0 (SOFT_START_DEFAULT)
-   You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
-   SOFT_START_DISABLED disable the Braccio movements
+  Braccio initialization and set intial position
+  Modifing this function you can set up the initial position of all the
+  servo motors of Braccio
+  @param soft_start_level: default value is 0 (SOFT_START_DEFAULT)
+  You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
+  SOFT_START_DISABLED disable the Braccio movements
 */
 void RoboticArmBegin()
 {
@@ -286,10 +291,10 @@ void RoboticArmBegin()
 }
 
 /*
-    This function, used only with the Braccio Shield V4 and greater,
-    turn ON the Braccio softly and save Braccio from brokes.
-    The SOFT_START_CONTROL_PIN is used as a software PWM
-    @param soft_start_level: the minimum value is -70, , default value is 0 (SOFT_START_DEFAULT)
+  This function, used only with the Braccio Shield V4 and greater,
+  turn ON the Braccio softly and save Braccio from brokes.
+  The SOFT_START_CONTROL_PIN is used as a software PWM
+  @param soft_start_level: the minimum value is -70, , default value is 0 (SOFT_START_DEFAULT)
 */
 void softStart(int soft_start_level)
 {
@@ -304,9 +309,9 @@ void softStart(int soft_start_level)
 }
 
 /*
-   Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
-   @param high_time: the time in the logic level high
-   @param low_time: the time in the logic level low
+  Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
+  @param high_time: the time in the logic level high
+  @param low_time: the time in the logic level low
 */
 void softwarePWM(int high_time, int low_time)
 {
