@@ -169,6 +169,12 @@ void processCommand()
     delay(1000);
     Command = "";
   }
+  else if(Commmad.startsWith("O")
+  {
+    OriginalPosition();
+    delay(1000);
+    Command ="";
+  }
   // Inform user to enter a legal command
   else
   {
@@ -489,6 +495,30 @@ void moveGripper(int stepDelay, int vgripper)
   }
 }
 
+void OriginalPosition()
+{
+ //For each step motor this set up the initial degree
+  base.write(90);
+  delay(1500);
+  shoulder.write(90);
+  delay(1000);
+  elbow.write(180);
+  delay(1000);
+  wrist_ver.write(180);
+  delay(1000);
+  wrist_rot.write(90);
+  delay(1000);
+  gripper.write(10);
+  delay(1000);
+  //Previous step motor position
+  step_base = 90;
+  step_shoulder = 90;
+  step_elbow = 180;
+  step_wrist_ver = 180;
+  step_wrist_rot = 90;
+  step_gripper = 10;
+}
+
 /**
   Braccio initialization and set intial position
   Modifing this function you can set up the initial position of all the
@@ -510,15 +540,21 @@ void RoboticArmBegin()
   wrist_ver.attach(6);
   wrist_rot.attach(5);
   gripper.attach(3);
-
+  softStart(-35); // delayMicroseconds
+  delay(1500);
   //For each step motor this set up the initial degree
   base.write(90);
+  delay(1500);
   shoulder.write(90);
+  delay(1000);
   elbow.write(180);
+  delay(1000);
   wrist_ver.write(180);
+  delay(1000);
   wrist_rot.write(90);
+  delay(1000);
   gripper.write(10);
-
+  delay(1000);
   //Previous step motor position
   step_base = 90;
   step_shoulder = 90;
