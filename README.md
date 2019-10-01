@@ -26,6 +26,8 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 * [Digital Construction Manual](https://www.robotshop.com/media/files/pdf/Braccio_Quick_Start_Guide.pdf)
 
+* **Wrist and Gripper** needs a finer screw driver than the one provided in the pack.
+
 **Click the image to be redirected to the construction video on you tube**
 
   [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](https://www.youtube.com/watch?time_continue=16&v=Lwb2ppat_bs "Robotic Arm Construction")
@@ -48,6 +50,7 @@ Allowed values for each servo are as follows:
  * Wrist vertical = V and ALLOWED values are 0 to 180
  * Wrist Rotation = R and ALLOWED values are 0 to 180
  * Gripper        = G and ALLOWED values are 10 to 73
+ * Home Position  = HOM which is B90 S90 E180 V180 R90 G10
 
  * Eg Base to 60 degrees = **B60**
 
@@ -59,7 +62,7 @@ When the light is OFF when your command is being processed
    **ORDER OF OPERATION** Robotic Arm moves in this order:
 
     * base -> shoulder -> elbow -> wrist vertical -> wrist rotation -> gripper 
-    
+
    **Plan your movements accordingly**
 
 ## Acknowledgements 
