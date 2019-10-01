@@ -6,7 +6,7 @@
           Once you calculated all of the movements via the manual sketch 
           you can use this one to automate the process.
           Consider one movement to all six servos in one go, so: 
-                          //(SD,  BA,    SH,   EL,   WV,   WR,  GR);
+                            //(SD,  BA,    SH,   EL,   WV,   WR,  GR);
           RoboticArmMovement(20,  180,   30,   10,   60,   90,  73);
   License: GNU Lesser General Public License
   Documentation: https://github.com/CompEng0001/YearZeroRoboticArm
@@ -97,7 +97,9 @@ void loop()
  ****************************************************************************************************************************/
 
 /**
-  This functions allow you to control all the servo motors
+  This functions allows you to control all the servo motors
+  
+  Robotic Arm moves in this order base -> shoulder -> elbow -> wrist vertical -> wrist rotation -> gripper  
 
   @param stepDelay The delay between each servo movement
   @param vBase next base servo motor degree
