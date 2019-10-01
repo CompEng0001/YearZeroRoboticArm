@@ -43,13 +43,13 @@ void setup()
   pinMode(LED_BUILTIN, OUTPUT);
   Serial.println("Please stand back for your saftey....");
   Serial.println("Initialising all servos please wait...");
-  Serial.println("..in 3 seconds.");
+  Serial.print("..in 3 seconds.");
   delay(1000);
-  Serial.print(".. 2 seconds");
+  Serial.print(".. 2 seconds.");
   delay(1000);
   Serial.print(".. 1 seconds");
   delay(1000);
-  Serial.println("STAND BACK");
+  Serial.println("...STAND BACK");
   //initialization of RoboticArm safely
   RoboticArmBegin();
   Serial.println("Initialisation complete!");
@@ -69,9 +69,8 @@ void setup()
   Serial.println(" * Wrist vertical = V and ALLOWED values are 0 to 180");
   Serial.println(" * Wrist Rotation = R and ALLOWED values are 0 to 180");
   Serial.println(" * Gripper        = G and ALLOWED values are 10 to 73");
+  Serial.println(" * Home Position  = HOM");
   Serial.println("");
-  Serial.println(" * Home           = HOM");
-  Serial.println("")
   Serial.println(" * Eg Base to 60 degrees = B60");
   Serial.println("");
   Serial.println("The robotic arm is ready to receive commands when the led is ON.");
@@ -84,6 +83,7 @@ void setup()
 
   Serial.println("");
   Serial.println("In Home position: B90 S90 E180 V180 R90 G10");
+
   }
 
 void loop()
@@ -117,7 +117,7 @@ void serialListener()
 }
 
 /**
- * processCommand actions the String Commmand by findings the indentifier and then the angle ie B60
+ * processCommand actions the String Command by findings the indentifier and then the angle ie B60
  */
 void processCommand()
 {
@@ -174,9 +174,9 @@ void processCommand()
     delay(1000);
     Command = "";
   }
-  else if(Commad.startsWith("H"))
+  else if(Command.startsWith("H"))
   {
-    OriginalPosition();
+    HomePosition();
     delay(1000);
     Command ="";
   }
@@ -190,7 +190,7 @@ void processCommand()
 
 /**
  * Indetifies the right motor to move by searching the String Command and checking against the input motor
- * @param l_Command is the Commmand received from the serail montior
+ * @param l_Command is the Command received from the serail montior
  * @param l_motor is the motor indentifier that must match parent condition.
  * @returnparam angle is the new angle the identified motor will position to.
  */
@@ -500,7 +500,7 @@ void moveGripper(int stepDelay, int vgripper)
   }
 }
 
-void OriginalPosition()
+void HomePosition()
 {
  //For each step motor this set up the initial degree
   base.write(90);
@@ -569,8 +569,7 @@ void RoboticArmBegin()
   step_wrist_ver = 180;
   step_wrist_rot = 90;
   step_gripper = 10;
- 
-  softStart(-35); // delayMicroseconds
+
 }
 
 /**
