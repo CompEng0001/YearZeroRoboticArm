@@ -38,53 +38,8 @@ String Command; // for saving c to a string
 
 void setup()
 {
-  // Open serial for communication
-  Serial.begin(9600);
-  pinMode(LED_BUILTIN, OUTPUT);
-  Serial.println("Please stand back for your saftey....");
-  Serial.println("Initialising all servos please wait...");
-  Serial.print("..in 3 seconds.");
-  delay(1000);
-  Serial.print(".. 2 seconds.");
-  delay(1000);
-  Serial.print(".. 1 seconds");
-  delay(1000);
-  Serial.println("...STAND BACK");
-  //initialization of RoboticArm safely
-  RoboticArmBegin();
-  Serial.println("Initialisation complete!");
-  Serial.println("");
-  
-  // Some instructions to screen
- 
-  Serial.println("######################## OPERATING INFORMATION #######################");
-  Serial.println("");
-  Serial.println("The robotoic arm will only move when an excepted command is inputted:");
-  Serial.println("");
-  Serial.println("Allowed values for each servo are as follows:");
-  Serial.println("");
-  Serial.println(" * Base           = B and ALLOWED values are 0 to 180");
-  Serial.println(" * Shoulder       = S and ALLOWED values are 15 to 165");
-  Serial.println(" * Elbow          = E and ALLOWED values are 0 to 180");
-  Serial.println(" * Wrist vertical = V and ALLOWED values are 0 to 180");
-  Serial.println(" * Wrist Rotation = R and ALLOWED values are 0 to 180");
-  Serial.println(" * Gripper        = G and ALLOWED values are 10 to 73");
-  Serial.println(" * Home Position  = HOM");
-  Serial.println("");
-  Serial.println(" * Eg Base to 60 degrees = B60");
-  Serial.println("");
-  Serial.println("The robotic arm is ready to receive commands when the led is ON.");
-  Serial.println("When the light is OFF when your command is being processed");
-  Serial.println("");
-  Serial.println("If in doubt refer to documentation or ask for help!");
-  Serial.println("");
-  Serial.println("##################### END OF OPERATING INFORMATION ####################");
-  delay(1000);
-
-  Serial.println("");
-  Serial.println("In Home position: B90 S90 E180 V180 R90 G10");
-
-  }
+  initialise_RoboticArm();
+}
 
 void loop()
 {
@@ -569,6 +524,56 @@ void RoboticArmBegin()
   step_wrist_ver = 180;
   step_wrist_rot = 90;
   step_gripper = 10;
+
+}
+
+void initialise_RoboticArm()
+{
+  // Open serial for communication
+  Serial.begin(9600);
+  pinMode(LED_BUILTIN, OUTPUT);
+  Serial.println("Please stand back for your saftey....");
+  Serial.println("Initialising all servos please wait...");
+  Serial.print("..in 3 seconds.");
+  delay(1000);
+  Serial.print(".. 2 seconds.");
+  delay(1000);
+  Serial.print(".. 1 seconds");
+  delay(1000);
+  Serial.println("...STAND BACK");
+  //initialization of RoboticArm safely
+  RoboticArmBegin();
+  Serial.println("Initialisation complete!");
+  Serial.println("");
+  
+  // Some instructions to screen
+
+  Serial.println("######################## OPERATING INFORMATION #######################");
+  Serial.println("");
+  Serial.println("The robotoic arm will only move when an excepted command is inputted:");
+  Serial.println("");
+  Serial.println("Allowed values for each servo are as follows:");
+  Serial.println("");
+  Serial.println(" * Base           = B and ALLOWED values are 0 to 180");
+  Serial.println(" * Shoulder       = S and ALLOWED values are 15 to 165");
+  Serial.println(" * Elbow          = E and ALLOWED values are 0 to 180");
+  Serial.println(" * Wrist vertical = V and ALLOWED values are 0 to 180");
+  Serial.println(" * Wrist Rotation = R and ALLOWED values are 0 to 180");
+  Serial.println(" * Gripper        = G and ALLOWED values are 10 to 73");
+  Serial.println(" * Home Position  = HOM");
+  Serial.println("");
+  Serial.println(" * Eg Base to 60 degrees = B60");
+  Serial.println("");
+  Serial.println("The robotic arm is ready to receive commands when the led is ON.");
+  Serial.println("When the light is OFF when your command is being processed");
+  Serial.println("");
+  Serial.println("If in doubt refer to documentation or ask for help!");
+  Serial.println("");
+  Serial.println("##################### END OF OPERATING INFORMATION ####################");
+  delay(1000);
+
+  Serial.println("");
+  Serial.println("In Home position: B90 S90 E180 V180 R90 G10");
 
 }
 
