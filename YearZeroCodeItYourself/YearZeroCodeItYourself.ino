@@ -5,7 +5,7 @@
   Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
           Input a motor and desired angle into the serial montior and the robotic arm will move. 
           Follow on Serial montior instructions
-          This sketch can be used in conjuction with the app in the repository 
+          However... there is something missing. 
   License: GNU Lesser General Public License
   Documentation: https://github.com/CompEng0001/YearZeroRoboticArm
   Acknowledgements: TinkerKit Braccio base libraries -> https://github.com/arduino-org/arduino-library-braccio
