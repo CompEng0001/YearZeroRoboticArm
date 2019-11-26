@@ -4,6 +4,8 @@
 This repository is for the Year Zero Robotic Arm project, included is Arduino sketches, software and some documentation.
 
 **Sketches**
+   * [YearZeroCodeItYourself](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroCodeItYourself), **you should start here**, once the robotic arm has been constructed and connected to the PC and the mains supply. Then once you have attempted to control the robotic arm then -> [Missing Code](https://github.com/CompEng0001/YearZeroRoboticArm/blob/master/Missing%20Code.docx?raw=true)
+   
    * [YearZeroRobotArmManualInstructions](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmManualInstructions), gives you manaul control over each servo individually and is designed to be used via the command line or the [Robotic Arm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App)
    * [YearZeroRobotArmMain](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmMain), is to be used to automate all planned movements you calculated using the latter sketch.
 
