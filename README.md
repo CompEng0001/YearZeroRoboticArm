@@ -40,7 +40,8 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 
 **Click the image to be redirected to a quick video of simple pick and place task, on youtube**
- [![](http://img.youtube.com/vi/SHML6NhQB3I/0.jpg)](https://youtu.be/SHML6NhQB3I "Robotic Arm performing a pick and place action")
+
+   [![](http://img.youtube.com/vi/SHML6NhQB3I/0.jpg)](https://youtu.be/SHML6NhQB3I "Robotic Arm performing a pick and place action")
 
 ### Manual Code
 
