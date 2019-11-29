@@ -9,6 +9,10 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
    * [YearZeroRobotArmManualInstructions](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmManualInstructions), gives you manaul control over each servo individually and is designed to be used via the command line or the [Robotic Arm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App)
    * [YearZeroRobotArmMain](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmMain), is to be used to automate all planned movements you calculated using the latter sketch.
 
+**A Video on how to do download the project to get access the code in one place**
+
+[![](http://img.youtube.com/vi/nCR-zGrlY7E/0.jpg)](https://youtu.be/nCR-zGrlY7E "How to download the project and open the first sketch")
+
 **App**
    * The [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is developed for Android only.
      The App is available for you to download on your own device, but as this is open source you install it **at your own risk**, as you should only install from trustworthy sources.
