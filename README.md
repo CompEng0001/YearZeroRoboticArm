@@ -30,13 +30,17 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 * **Wrist and Gripper** needs a finer screw driver than the one provided in the pack.
 
-**Click the image to be redirected to the construction video on you tube**
+**Click the image to be redirected to the construction video on youtube**
 
   [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](https://www.youtube.com/watch?time_continue=16&v=Lwb2ppat_bs "Robotic Arm Construction")
 
 > Make sure you use the right numbered servo motors (numbering on the end of the cable near the connector) in the right joints. And be a bit careful because mounting the servos with the screws causes the plastic to "bloom" a bit and it will never be quite as tight if you have to remove them and put them back in again. Although the plastic pentagons are pre-attached to the servo hub, but I found that some were a few degrees off center, so you just have to adjust your code for that,  **AGAIN IF YOU NEED HELP ASK!**.
 
 ## Operational Information 
+
+
+**Click the image to be redirected to a quick video of simple pick and place task, on youtube**
+ [![](http://img.youtube.com/vi/SHML6NhQB3I/0.jpg)](https://youtu.be/SHML6NhQB3I "Robotic Arm performing a pick and place action")
 
 ### Manual Code
 
