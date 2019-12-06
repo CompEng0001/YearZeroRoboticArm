@@ -56,7 +56,7 @@ void setup()
   Serial.println("");
   Serial.println("The robotic arm will follow the sequence of instrunctions listed in loop().");
   Serial.println("This will begin when the led turns on");
-  Serial.println("REMEMBER: WHEN THE ROBOT IS IN MOTION DO NOT ENTER THE OPERATING ZONE")
+  Serial.println("REMEMBER: WHEN THE ROBOT IS IN MOTION DO NOT ENTER THE OPERATING ZONE");
   Serial.println("If in doubt refer to documentations or ask for help!");
   Serial.println("");
   Serial.println("##################### END OF OPERATING INFORMATION ####################");
@@ -79,13 +79,13 @@ void loop()
     WR = wrist rotation degrees. Allowed values from 0 to 180 degrees
     GR = gripper degrees. Allowed values from 10 to 73 degrees. 10: the toungue is open, 73: the gripper is closed.
   ******************************************************************************************************************/
-  Serial.println("First Movement")
+  Serial.println("First Movement");
                   //(SD,  BA,   SH,   EL,   WV,  WR,  GR);
   RoboticArmMovement(20,  180,  30,   10,   60,  90,  73);
   //Wait 1 second recommended for power to discharge from the servos 
   delay(1000);
 
-  Serial.println("Second Movement")
+  Serial.println("Second Movement");
                   //(SD,  BA,  SH,   EL,   WV,  WR,  GR);
   RoboticArmMovement(20,  0,   120,  10,  100,  10,  10);
   // Wait 1 second recommended for power to discharge from the servos
