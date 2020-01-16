@@ -9,6 +9,10 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
    * [YearZeroRobotArmManualInstructions](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmManualInstructions), gives you manaul control over each servo individually and is designed to be used via the command line or the [Robotic Arm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App)
    * [YearZeroRobotArmMain](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/YearZeroRobotArmMain), is to be used to automate all planned movements you calculated using the latter sketch.
 
+**A Video on how to do download the project to get access the code in one place**
+
+[![](http://img.youtube.com/vi/nCR-zGrlY7E/0.jpg)](https://youtu.be/nCR-zGrlY7E "How to download the project and open the first sketch")
+
 **App**
    * The [RoboticArm app](https://github.com/CompEng0001/YearZeroRoboticArm/tree/master/App) has been downloaded on to the Android OS tablets supplied with this robotic arm, please note it is developed for Android only.
      The App is available for you to download on your own device, but as this is open source you install it **at your own risk**, as you should only install from trustworthy sources.
@@ -30,13 +34,18 @@ This repository is for the Year Zero Robotic Arm project, included is Arduino sk
 
 * **Wrist and Gripper** needs a finer screw driver than the one provided in the pack.
 
-**Click the image to be redirected to the construction video on you tube**
+**Click the image to be redirected to the construction video on youtube**
 
   [![](http://img.youtube.com/vi/5VkjJXm6bx8/0.jpg)](https://www.youtube.com/watch?time_continue=16&v=Lwb2ppat_bs "Robotic Arm Construction")
 
 > Make sure you use the right numbered servo motors (numbering on the end of the cable near the connector) in the right joints. And be a bit careful because mounting the servos with the screws causes the plastic to "bloom" a bit and it will never be quite as tight if you have to remove them and put them back in again. Although the plastic pentagons are pre-attached to the servo hub, but I found that some were a few degrees off center, so you just have to adjust your code for that,  **AGAIN IF YOU NEED HELP ASK!**.
 
 ## Operational Information 
+
+
+**Click the image to be redirected to a quick video of simple pick and place task, on youtube**
+
+   [![](http://img.youtube.com/vi/SHML6NhQB3I/0.jpg)](https://youtu.be/SHML6NhQB3I "Robotic Arm performing a pick and place action")
 
 ### Manual Code
 
