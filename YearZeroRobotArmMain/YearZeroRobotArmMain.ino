@@ -1,8 +1,8 @@
 /***********************************************************************************************************************
-  Sketch amalgamated by: Rich Blair
+  Sketch amalgamated by: Seb Blair
   Date: 19/07/19
   Version: 2.3
-  Useage: Year Zero Project Two to control the robotic arm autonomously 
+  Useage: To control the robotic arm autonomously 
           Once you calculated all of the movements via the manual sketch 
           you can use this one to automate the process.
           Consider one movement to all six servos in one go, so: 

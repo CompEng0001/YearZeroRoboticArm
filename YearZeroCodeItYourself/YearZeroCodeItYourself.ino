@@ -1,8 +1,8 @@
 /***********************************************************************************************************************
-  Sketch amalgamated by: Rich Blair(CompEng0001)
+  Sketch amalgamated by: Seb Blair(CompEng0001)
   Date: 26/11/19
   Version: 1.2
-  Useage: Year Zero Project Two to control the robotic arm via each servo individually in one sketch
+  Useage: To control the robotic arm via each servo individually in one sketch
           Input a motor and desired angle into the serial montior and the robotic arm will move. 
           Follow on Serial montior instructions
           However... there is something missing.
